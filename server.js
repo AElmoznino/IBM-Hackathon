@@ -22,30 +22,20 @@ app.use(express.static(path.join(__dirname, 'node_modules')));
 let Sale = require('./models/salesModel');
 let Price = require('./models/pricingModel');
 
-app.get('/', (req, res, next) => {
-  Price.find((err, sales) => {
+app.get('/getSales', (req, res, next) => {
+  Sale.find((err, sales) => {
     if (err) return next(err);
 
     res.send(sales);
   });
 });
 
+app.get('/getPrices', (req, res, next) => {
+  Price.find((err, sales) => {
+    if (err) return next(err);
 
-// routes to data that converts from csv to json
-// app.get('/fanco-sales', function (req, res, next) {
-//   converter.fromFile('./data/fanco-sales.csv', function (err, result) {
-//     if (err) return next(err);
-//
-//     res.send(result);
-//   });
-// });
-//
-// app.get('/fanco-pricing', (req, res, next) => {
-//   converter.fromFile('./data/fanco-pricing.csv', (err, result) => {
-//     if (err) return next(err);
-//
-//     res.send(result);
-//   });
-// });
+    res.send(sales);
+  });
+});
 
 app.listen(port);

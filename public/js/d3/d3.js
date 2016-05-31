@@ -1,34 +1,34 @@
-// //Width and height
-// var svgW = 500;
-// var svgH = 100;
+//Width and height
+var svgW = 500;
+var svgH = 100;
 
-// //Data
-// var dataset = [ 5, 10, 15, 20, 25 ];
+//Data
+var dataset = [ 5, 10, 15, 20, 25 ];
 
-// //Create SVG element
-// var svg = d3.select(".chart")
-//       .append("svg")
-//       .attr("width", svgW)
-//       .attr("height", svgH);
+//Create SVG element
+var svg = d3.select(".chart")
+      .append("svg")
+      .attr("width", svgW)
+      .attr("height", svgH);
 
-// var circles = svg.selectAll("circle")
-//     .data(dataset)
-//     .enter()
-//     .append("circle");
+var circles = svg.selectAll("circle")
+    .data(dataset)
+    .enter()
+    .append("circle");
 
-// circles.attr("cx", function(d, i) {
-//       return (i * 50) + 25; // i, is also automatically populated for us. i is a numeric index value of the current element. Counting starts at zero, so for our “first” circle i == 0, the second circle’s i == 1 and so on. We’re using i to push each subsequent circle over to the right, because each subsequent loop through, the value of i increases.
-//     })
-//      .attr("cy", h/2) //h is the height of the entire SVG, so h/2 is one-half of its height. This has the effect of aligning all circles in the vertical center.
-//      .attr("r", function(d) { //the radius r of each circle is simply set to d, the corresponding data value.
-//       return d;
-//      });
+circles.attr("cx", function(d, i) {
+      return (i * 50) + 25; // i, is also automatically populated for us. i is a numeric index value of the current element. Counting starts at zero, so for our “first” circle i == 0, the second circle’s i == 1 and so on. We’re using i to push each subsequent circle over to the right, because each subsequent loop through, the value of i increases.
+    })
+     .attr("cy", h/2) //h is the height of the entire SVG, so h/2 is one-half of its height. This has the effect of aligning all circles in the vertical center.
+     .attr("r", function(d) { //the radius r of each circle is simply set to d, the corresponding data value.
+      return d;
+     });
 
-// circles.attr("fill", "yellow")
-// .attr("stroke", "orange")
-// .attr("stroke-width", function(d) {
-//     return d/2;
-// });
+circles.attr("fill", "yellow")
+.attr("stroke", "orange")
+.attr("stroke-width", function(d) {
+    return d/2;
+});
 
 
 // //Width and height

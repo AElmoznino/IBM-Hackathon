@@ -5,7 +5,13 @@ angular
       .state('home', {
         url: '/home',
         templateUrl: '/templates/home.html',
-        controller: 'MainCtrl'
+        controller: 'MainCtrl',
+        resolve: {
+          allData: ['sales',function(sales){
+            sales.getAllSales();
+            sales.getPrices();
+          }]
+        }
       })
       .state('home.sales', {
         url: '/sales',

@@ -16,6 +16,9 @@ angular
             sales.getAllSales();
           }]
         }
+      }).state('home.d3', {
+        url: '/d3',
+        templateUrl: '/templates/d3.html'
       })
 
       // TODO: Implement Weather route for View 2

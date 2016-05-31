@@ -20,11 +20,12 @@
     "ejs": "~2.3.3",
     "express": "~4.13.1",
     "font-awesome": "^4.6.1",
+    "fs": "0.0.2",
     "gulp": "^3.9.1",
     "gulp-connect": "^4.0.0",
     "gulp-install": "^0.6.0",
     "jquery": "^2.2.3",
-    "mongoose": "^4.4.17",
+    "mongoose": "^4.4.19",
     "path": "^0.12.7",
     "serve-favicon": "~2.3.0",
     "vinyl-source-stream": "^1.1.0"

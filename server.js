@@ -19,10 +19,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'node_modules')));
 
-const Sale = require('../models/salesModel');
+let Sale = require('./models/salesModel');
+let Price = require('./models/pricingModel');
 
 app.get('/', (req, res, next) => {
-  Sale.find((err, sales) => {
+  Price.find((err, sales) => {
     if (err) return next(err);
 
     res.send(sales);

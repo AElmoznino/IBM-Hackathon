@@ -1,31 +1,49 @@
 "use strict"
 const fs = require('fs'),
       mongoose = require('mongoose'),
-      generator = require('mongoose-gen'),
       Converter = require('csvtojson').Converter,
-      converter = new Converter({ignoreEmpty: true}),
-      assert = require('assert');
+      converter = new Converter({ignoreEmpty: true});
 
-// load json
-const data;
+let SaleSchema = new mongoose.Schema({
+  'Week Of': String,
+  City: String,
+  Neighborhood: String,
+  Product: String,
+  SKU: String,
+  Chanel: String,
+  'Sales (Units)': {type: Number, default: 0}
 
-converter.fromFile('../data/fanco-sales.csv', (err, result) => {
-  if (err) return next(err);
-
-  data = result;
 });
 
-// Generate the Schema object.
-let BookSchema = new mongoose.Schema(generator.convert(data));
+let Sale = mongoose.model('Sale', SaleSchema);
 
-// Connect to mongodb and bind the book model.
-mongoose.connect('mongodb://localhost/fanco-db');
-let SaleModel = mongoose.model('Book', BookSchema);
+const convertToJson = function( file ) {
+  return new Promise( (res, rej) => {
+    converter.on("end_parsed", (jsonData) => {
+      if(!jsonData) {
+        rej("CSV to JSON conversion failed!")
+      }
+      res(jsonData);
+    });
+    fs.createReadStream(file).pipe(converter);
+  });
+};
 
-SaleModel.collection.insertMany(data, (err) => {
-  assert.equal(null, err);
+convertToJson('./data/fanco-sales.csv')
+  // handle the successful data conversion
+  .then( (data) => {
+    mongoose.connection.db.listCollections({name: 'sales'})
+    .next(function(err, collinfo) {
+        if (collinfo) {
+            // The collection exists
+            console.log('exists');
+            Sale.collection.updateMany(data);
+        } else {
+          Sale.collection.insertMany(data);
+        }
+    });
+  })
+  // handle a rejected promise
+  .then( null, console.log );
 
-  db.close();
-});
-
-module.exports = SaleModel;
+module.exports = Sale;

@@ -16,15 +16,21 @@ angular
       .state('home.sales', {
         url: '/sales',
         templateUrl: '/templates/sales.html',
-        controller: 'SalesCtrl',
-        resolve: {
-          salesPromise: ['sales',function(sales){
-            sales.getAllSales();
-          }]
-        }
+        controller: 'SalesCtrl'
       }).state('home.d3', {
         url: '/d3',
         templateUrl: '/templates/d3.html'
+      })
+      .state('price', {
+        url: '/prices',
+        templateUrl: '/templates/prices.html',
+        controleer: 'SalesCtrl',
+        resolve: {
+          allData: ['sales',function(sales){
+            sales.getAllSales();
+            sales.getPrices();
+          }]
+        }
       })
 
       // TODO: Implement Weather route for View 2

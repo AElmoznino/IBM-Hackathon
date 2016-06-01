@@ -30,7 +30,7 @@ p, a {
 /* NAVBAR */
 
 .nav > li > a {
-    color: #ffeb99;
+    color: #0077C2 !important;
     font-size: 16px;
     text-decoration: none;
 }
@@ -41,7 +41,7 @@ p, a {
 }
 
 .nav-title {
-  color: #777 !important;
+  color: #0077C2 !important;
   font-size: 16px;
   text-decoration: none;
   padding: 15px 0;
@@ -273,4 +273,8 @@ rect {
 .col-md-12 {
   padding-left:0px !important;
   padding-right:0px !important;
+}
+
+a:hover {
+  text-decoration: none;
 }

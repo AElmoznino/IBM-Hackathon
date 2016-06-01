@@ -1,4 +1,17 @@
-<div class="jumbotron">
+<div class="row">
+        <div class="col-md-6 sales-div">
+          <h3 class="image-text text-center">
+            <a ui-sref=".sales">Sales</a>
+          </h3>
+        </div>
+        <div class="col-md-6 weather-div">
+          <h3 class="image-text text-center" id="weather-vertical">
+            <a ui-sref="price">Forecasts<br />&amp;<br />Alerts<br /><span id="coming-soon">(Coming Soon)</span></a>
+          </h3>
+        </div>
+</div>
+
+<!-- <div class="jumbotron">
   <h2>
     FanCo Sales Report
   </h2>
@@ -10,6 +23,8 @@
     <li><a ui-sref="price">Price</a></li>
     <li><a ui-sref=".d3">d3</a></li>
   </ul>
-</div>
+</div> -->
+
+
 
 <ui-view></ui-view>

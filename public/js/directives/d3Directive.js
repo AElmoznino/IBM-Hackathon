@@ -4,7 +4,7 @@ angular.module('fanCo')
       link: function(scope, element, attrs) {
         d3Service.d3().then(function(d3) {
 
-<<<<<<< HEAD
+
       //our data
       var dataset = [];
 
@@ -224,7 +224,7 @@ angular.module('fanCo')
 
 
         
-=======
+
           var data = sales.salesData;
           // // console.log(sales.salesData)
 
@@ -370,12 +370,12 @@ angular.module('fanCo')
           //     .attr("class", "axis")
           //     .attr("transform", "translate(" + padding + ",0)")
           //     .call(yAxis);
->>>>>>> master
+
 
         });
       }}
   }]);
-<<<<<<< HEAD
+
 
 
   //arrays for storing the specific data
@@ -454,5 +454,3 @@ angular.module('fanCo')
          // console.log(productArray)
          // console.log(dateArray)
          // console.log(salesObjectArray)
-=======
->>>>>>> master

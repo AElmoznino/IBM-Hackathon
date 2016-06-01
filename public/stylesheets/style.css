@@ -10,8 +10,34 @@
 body {
     font-family: Verdana,arial,Helvetica,sans-serif;
     font-size: 90%;
-    margin: 50px;
 }
+
+/* NAVBAR */
+
+/*Navbar */
+
+.nav > li > a {
+    color: #ffeb99;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.transparent {
+  background-color: transparent !important;
+  border: 0px !important;
+}
+
+.nav-title {
+  color: #777 !important;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 15px 0;
+  line-height: 20px;
+  display: block;
+  font-family: Verdana,arial,Helvetica,sans-serif;
+}
+
+/* TABLES */
 
 
 table.info-table {

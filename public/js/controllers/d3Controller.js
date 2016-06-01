@@ -14,7 +14,7 @@ angular.module('fanCo')
           var x = d3.time.scale()
               .domain([new Date(data[0]['Week Of']), d3.time.day.offset(new Date(data[1]['Week Of']), 1)])
               .rangeRound([0, width - margin.left - margin.right]);
-              console.log(data[data.length - 1]['Week Of'])
+              // console.log(data[data.length - 1]['Week Of'])
           var y = d3.scale.linear()
               .domain([0, d3.max(data, function(d) { return d['Sales (Units)']; })])
               .range([height - margin.top - margin.bottom, 0]);

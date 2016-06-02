@@ -28,9 +28,8 @@ angular
         url: '/forecast',
         templateUrl: '/templates/forecast.html',
         resolve: {
-          allData: ['sales',function(sales){
-            sales.getAllSales();
-            sales.getPrices();
+          allData: ['forecast',function(forecast){
+            forecast.getForecast();
           }]
         }
       });

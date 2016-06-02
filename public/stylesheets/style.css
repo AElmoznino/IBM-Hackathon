@@ -5,7 +5,7 @@
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Roboto Slab',Arial,sans-serif;
-  color: white;
+  color: #17373D;
 }
 
 p, a {
@@ -26,6 +26,9 @@ p, a {
   margin: 1px;
   color: white;
 }
+
+.mt {margin-top: 40px;}
+.mb {margin-bottom: 40px;}
 
 /* NAVBAR */
 
@@ -54,6 +57,10 @@ p, a {
 }
 
 /* HOME PAGE */
+
+.image-text a {
+  color:white;
+}
 
 .sales-div {
   background-image:url(../img/sales.jpg);
@@ -264,6 +271,17 @@ rect {
   line-height: 20px;
 }
 
+/* GRAPHS */
+
+.graph-card {
+  border-top: 4px solid #0077C2;
+  background-color: white;
+}
+
+.back-bg {
+  background-color: #EEF2F6;
+}
+
 /* ANGULAR */
 .ng-scope { margin:0; }
 
@@ -278,4 +296,25 @@ rect {
 
 a:hover, a:visited, a:focus, a:active {
   text-decoration: none;
+}
+
+.active {
+  background-color: #0077C2 !important;
+}
+
+.btn {
+  background-color: #47A9BD;
+  margin-right: 20px;
+}
+
+button.btn.btn-default.disabled {
+    background-color: #87BDC8;
+}
+
+.chart-page-header {
+  margin-bottom: 30px;
+}
+
+.white {
+  background-color: white;
 }

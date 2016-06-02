@@ -13,11 +13,12 @@ angular
           }]
         }
       })
-      .state('home.sales', {
+      .state('sales', {
         url: '/sales',
         templateUrl: '/templates/sales.html',
         controller: 'SalesCtrl'
-      }).state('home.d3', {
+      })
+      .state('home.d3', {
         url: '/d3',
         templateUrl: '/templates/d3.html'
       })

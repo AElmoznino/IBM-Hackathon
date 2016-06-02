@@ -62,9 +62,7 @@ angular
               return d;
             }
 
-            console.log(getSumByDate(data));
-
-            // combine to arrays
+            // combine sum and dates in array
             var combine = function (data) {
               var result = [],
                   l = getSumByDate(data),
@@ -94,7 +92,6 @@ angular
 
               return sortedArr;
             }
-
 
             var result = combine(data),
                 resultByDate = sort(result, true);
@@ -132,18 +129,19 @@ angular
                      .attr('height', height + margins.top + margins.bottom);
 
                 chart.append('svg:g')
-                     .attr('class', 'xaxis')
+                     .attr('class', 'x axis')
                      .attr('transform', 'translate(0,' + (height - margins.bottom) + ')')
                      .call(xAxis)
                      .attr('shape-rendering','crispEdges');
 
-                chart.selectAll('.xaxis text')  // select all the text elements for the xaxis
+                chart.selectAll('.x text')  // select all the text elements for the xaxis
                       .attr('transform', function(d) {
                         console.log( this.getBBox());
                         return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
                       });
 
                 chart.append('svg:g')
+                     .attr('class', 'y axis')
                      .attr('transform', 'translate(' + (margins.left) + ',0)')
                      .call(yAxis)
                      .attr('shape-rendering','crispEdges');
@@ -162,8 +160,6 @@ angular
                      .attr('stroke', 'green')
                      .attr('stroke-width', 1)
                      .attr('fill', 'none');
-
-                     console.log(data);
           });
         }
       }

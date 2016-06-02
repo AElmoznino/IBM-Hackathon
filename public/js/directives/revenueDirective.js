@@ -152,7 +152,7 @@ angular
                        return xScale(new Date(d.date));
                      })
                      .y(function(d) {
-                       return yScale(d.sum);
+                       return yScale(Number(d.sum));
                      })
                      .interpolate('basis');
 

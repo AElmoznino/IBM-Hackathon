@@ -60,7 +60,7 @@ p, a {
   background-size:100%;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: center; 
+  background-position: 0px 0px;
   min-height: 800px;
     -webkit-filter: grayscale(1);
   filter: grayscale(1);
@@ -75,6 +75,7 @@ p, a {
   min-height: 800px;
     -webkit-filter: grayscale(1);
   filter: grayscale(1);
+  background-position: 0px 0px;
 }
 
 .weather-div:hover, .sales-div:hover {
@@ -275,6 +276,6 @@ rect {
   padding-right:0px !important;
 }
 
-a:hover {
+a:hover, a:visited, a:focus, a:active {
   text-decoration: none;
 }

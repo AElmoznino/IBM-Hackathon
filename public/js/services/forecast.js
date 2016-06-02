@@ -3,8 +3,7 @@ angular
   .factory('forecast', ['$http', function ($http) {
 
     var forecastService = {
-        forecastData: [],
-        forecastFormatted: [],    
+        forecastData: [],    
 
      getForecast: function() {
       var apiKey = '871830d2ca37d894c7ce25994ee70244',
@@ -13,13 +12,8 @@ angular
           url = ['https://api.forecast.io/forecast/', apiKey, '/', lat, ',', lon, '?exclude=currently,minutely,hourly,alerts,flags&units=si&callback=JSON_CALLBACK'].join('');
 
       return $http.jsonp(url).then(function(data) {
-        angular.copy(data.data, forecastService.forecastData);
-        // console.log(forecastService.forecastData);
-        var forecastArray = {
-          dailyObj: data.data.daily.data
-        };
-        forecastService.forecastFormatted = forecastArray;
-        console.log(forecastService.forecastFormatted);
+        angular.copy(data.data.daily.data, forecastService.forecastData);
+        console.log(forecastService.forecastData);
       });
     },
 

@@ -149,7 +149,7 @@ angular
 
                 var lineGen = d3.svg.line()
                      .x(function(d) {
-                       return xScale(d.date);
+                       return xScale(new Date(d.date));
                      })
                      .y(function(d) {
                        return yScale(d.sum);

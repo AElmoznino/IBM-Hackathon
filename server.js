@@ -10,7 +10,7 @@ const express = require('express'),
 
 const app = express();
 
-mongoose.connect(process.env.MONGOLAB_IVORY_URI || 'mongodb://localhost/fanco-db');
+mongoose.connect(process.env.MONGOLAB_ROSE_URI || 'mongodb://localhost/fanco-db');
 
 app.use(favicon(path.join(__dirname, 'public', 'img/favicon.ico')));
 app.use(bodyParser.json());

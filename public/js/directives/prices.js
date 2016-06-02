@@ -52,21 +52,47 @@ angular
               return sum;
             }
 
+            var getDate = function (data) {
+              var d = [];
+              // var parseDate = d3.time.format("%b/%d/%y");
 
+              angular.forEach(data, function (v, key) {
+                // d.push(parseDate(new Date(key)));
+                d.push(new Date(key));
+              });
 
-            var l = getSumByDate(data);
-            var s = getSum(l);
+              return d;
+            }
 
-            console.log(d3.min(s),d3.max(s) );
-            var parseDate = d3.time.format("%U").parse;
+            // combine to arrays
+            var combine = function (data) {
+              var result = [],
+                  l = getSumByDate(data),
+                  s = getSum(l),
+                  d = getDate(l);
+              angular.forEach(s, function (val, i) {
+                result[i] = {
+                  sum: val,
+                  date: d[i]
+                }
+              });
 
-            angular.forEach(l, function (v, key) {
-              var d = new Date(key);
-              console.log(d.timestamp);
-            });
+              return result;
+            };
 
-            var chart = d3.select(".chart").append('svg'),
-                width = 1000,
+            var sort = function (data) {
+              var sortedArr = data.sort(function(x, y){
+                 return d3.ascending(x.index, y.index);
+              });
+
+              return sortedArr;
+            }
+
+            var result = combine(data),
+                sortedResult = sort(result);
+
+            var chart = d3.select(".line").append('svg'),
+                width = 500,
                 height = 500,
                 margins = {
                     top: 20,
@@ -74,18 +100,63 @@ angular
                     bottom: 20,
                     left: 50
                 },
-                xScale = d3.scale.linear().range([margins.left, width - margins.right]).domain([d3.min(s),d3.max(s)]),
-                yScale = d3.scale.linear().range([height - margins.top, margins.bottom]).domain([d3.min(s),d3.max(s)]),
+                xScale = d3.time.scale().range([margins.left, width - margins.right])
+                                .domain([result[result.length-1].date, result[0].date]),
+                yScale = d3.scale.linear().range([height - margins.top, margins.bottom]).domain([sortedResult[0].sum,sortedResult[sortedResult.length-1].sum]),
                 xAxis = d3.svg
                           .axis()
-                          .scale(xScale),
+                          .scale(xScale)
+                          .tickSize(1)
+                          .tickFormat(d3.time.format('%b/%d/%y')),
 
                 yAxis = d3.svg
                           .axis()
-                          .scale(yScale);
+                          .scale(yScale)
+                          .tickSize(1)
+                          .orient("left");
+
+                chart.attr("width", width + margins.left + margins.right)
+                     .attr("height", height + margins.top + margins.bottom);
 
                 chart.append('svg:g')
+                     .attr("class", "xaxis")
+                     .attr("transform", "translate(0," + (width - margins.bottom) + ")")
                      .call(xAxis);
+
+                chart.selectAll(".xaxis text")  // select all the text elements for the xaxis
+                      .attr("transform", function(d) {
+                        return "translate(" + this.getBBox().height*-0.5 + "," + this.getBBox().height*1.5 + ")rotate(-45)";
+                      })
+                      .attr("margins", 50);
+
+                chart.append("svg:g")
+                     .attr("transform", "translate(" + (margins.left) + ",0)")
+                     .call(yAxis);
+
+                var lineGen = d3.svg.line()
+                     .x(function(d) {
+                       console.log(d);
+                       return xScale(d);
+                     })
+                     .y(function(d) {
+                       console.log(d);
+                       return yScale(d);
+                     });
+
+                chart.data(data)
+                    .enter()
+                    .append('rect')
+                    .attr('class', 'bar')
+                    .attr('x', result.date)
+                    .attr('y', result.sum)
+                    .attr('width', 10)
+                    .attr('height', function(d) { return height - margins.top - margins.bottom - yAxis(d3.max(s)) });
+
+                // chart.append('svg:path')
+                //      .attr('d', lineGen(d, s))
+                //      .attr('stroke', 'green')
+                //      .attr('stroke-width', 2)
+                //      .attr('fill', 'none');
 
           });
         }

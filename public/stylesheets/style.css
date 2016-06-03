@@ -271,6 +271,15 @@ rect {
   line-height: 20px;
 }
 
+/* Chart styling */
+svg {
+  padding-left: 20px;
+}
+
+.axis text {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
 /* GRAPHS */
 
 .graph-card {
@@ -305,6 +314,7 @@ a:hover, a:visited, a:focus, a:active {
 .btn {
   background-color: #47A9BD;
   margin-right: 20px;
+  border: none;
 }
 
 button.btn.btn-default.disabled {

@@ -12,8 +12,13 @@ angular
           url = ['https://api.forecast.io/forecast/', apiKey, '/', lat, ',', lon, '?exclude=currently,minutely,hourly,alerts,flags&units=si&callback=JSON_CALLBACK'].join('');
 
       return $http.jsonp(url).then(function(data) {
-        angular.copy(data.data.daily.data, forecastService.forecastData);
-        console.log(forecastService.forecastData);
+        angular.copy(data.data.daily.data, forecastService.forecastData); // This copies the incoming data inte forecastService.forecastData
+        var fcd = forecastService.forecastData; // declaring a shorter variable
+        angular.forEach(fcd, function(fcd) {
+           
+          console.log(fcd); // TODO: have it save a new array of objects that just contain temperature and timestamp.
+        }); // this line prints out each object.
+        // console.log(forecastService.forecastData);
       });
     },
 

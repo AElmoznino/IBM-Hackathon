@@ -8,7 +8,7 @@ angular
 
           var data = scope.dataset;
 
-          data.forEach(function(d) { d.timestamp = new Date(d.timestamp * 86400); });
+          // data.forEach(function(d) { d.timestamp = new Date(d.timestamp * 86400); });
 
           var chart = d3.select('.line').append('svg'),
               width = 900,
@@ -36,10 +36,43 @@ angular
                         .tickSize(1)
                         .orient('left');
 
-              
+              chart.attr('width', width + margins.left + margins.right)
+                   .attr('height', height + margins.top + margins.bottom);
 
+              chart.append('svg:g')
+                   .attr('class', 'x axis')
+                   .attr('transform', 'translate(0,' + (height - margins.bottom) + ')')
+                   .call(xAxis)
+                   .attr('shape-rendering', 'crispEdges');
 
-          })
+              chart.selectAll('.x text ')
+                   .attr('transform', function(d) {
+                        // console.log( this.getBBox());
+                        return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
+                      });
+
+              chart.append('svg:g')
+                   .attr('class', 'y axis')
+                   .attr('transform', 'translate(' + (margins.left) + ',0)')
+                   .call(yAxis)
+                   .attr('shape-rendering', 'crispEdges');
+
+              var lineGen = d3.svg.line()
+                   .x(function(d) {
+                      return xScale(new Date(d.timestamp * 86400));
+                   })
+                   .y(function(d) {
+                    return yScale(Number(d.temperatureMax));
+                   })
+                   .interpolate('basis');
+
+              chart.append('svg:path')
+                   .attr('d', lineGen(data)) // TODO: Verify what to pass into it
+                   .attr('stroke', 'green')
+                   .attr('stroke-width', 1)
+                   .attr('fill', 'none');
+
+          });
         }
       }
-    }])
+    }]);

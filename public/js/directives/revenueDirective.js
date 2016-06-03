@@ -7,6 +7,8 @@ angular
             scope.dataset = sales.sales;
             scope.prices = sales.prices;
 
+            console.log(scope.prices);
+
             // Adding price to
             angular.forEach(scope.dataset, function (val) {
               // console.log(val);
@@ -109,7 +111,7 @@ angular
                                 .domain([resultByDate[0].date, resultByDate[resultByDate.length-1].date]),
                 yScale = d3.scale.linear().range([height - margins.top, margins.bottom])
                                  .domain([0, d3.max(result.map(function (d) {
-                                   console.log(d.sum);
+                                  //  console.log(d.sum);
                                     return d.sum;
                                   }))]),
                 xAxis = d3.svg
@@ -137,7 +139,7 @@ angular
 
                 chart.selectAll('.x text')  // select all the text elements for the xaxis
                       .attr('transform', function(d) {
-                        console.log( this.getBBox());
+                        // console.log( this.getBBox());
                         return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
                       });
 
@@ -149,10 +151,10 @@ angular
 
                 var lineGen = d3.svg.line()
                      .x(function(d) {
-                       return xScale(d.date);
+                       return xScale(new Date(d.date));
                      })
                      .y(function(d) {
-                       return yScale(d.sum);
+                       return yScale(Number(d.sum));
                      })
                      .interpolate('basis');
 
@@ -161,7 +163,8 @@ angular
                      .attr('d', lineGen(result))
                      .attr('stroke', 'green')
                      .attr('stroke-width', 1)
-                     .attr('fill', 'none')
+                     .attr('fill', 'none');
+
           });
         }
       }

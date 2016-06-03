@@ -74,7 +74,7 @@ angular
                       return xScale(new Date(d.timestamp * 86400));
                    })
                    .y(function(d) {
-                    return yScale(Number(d.temperatureMax));
+                      return yScale(Number(d.temperatureMax));
                    })
                    .interpolate('basis');
 

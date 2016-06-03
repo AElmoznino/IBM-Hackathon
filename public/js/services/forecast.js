@@ -15,8 +15,7 @@ angular
         angular.copy(data.data.daily.data, forecastService.forecastData); // This copies the incoming data inte forecastService.forecastData
       }); 
     },
-    
-    } // Closes the forecastService
 
+    } // Closes the forecastService
     return forecastService;
-  }])
+}]);

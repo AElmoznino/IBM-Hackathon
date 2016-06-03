@@ -27,6 +27,7 @@ angular
       .state('forecast', {
         url: '/forecast',
         templateUrl: '/templates/forecast.html',
+        controller: 'ForecastCtrl',
         resolve: {
           allData: ['forecast',function(forecast){
             forecast.getForecast();

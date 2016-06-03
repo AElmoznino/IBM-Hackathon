@@ -7,6 +7,8 @@ angular
 
             // Nothing happens or logs from the below. Make sure to pass correct value in line 76.
             console.log(scope.forecast);
+            console.log($scope.forecast);
+            console.log(forecast);
             console.log(forecast.forecastData);
             scope.forecast = forecast.forecastData;
 

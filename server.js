@@ -31,10 +31,10 @@ app.get('/getSales', (req, res, next) => {
 });
 
 app.get('/getPrices', (req, res, next) => {
-  Price.find((err, sales) => {
+  Price.find((err, prices) => {
     if (err) return next(err);
-
-    res.send(sales);
+    
+    res.send(prices);
   });
 });
 

@@ -25,7 +25,7 @@ const convertToJson = function(file) {
   });
 };
 
-convertToJson('./data/fanco-pricing.csv')
+convertToJson('data/fanco-pricing.csv')
   // handle the successful data conversion
   .then( (data) => {
     mongoose.connection.db.listCollections({name: 'prices'})

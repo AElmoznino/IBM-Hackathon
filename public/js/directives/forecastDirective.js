@@ -4,9 +4,14 @@ angular
       return {
         link: function(scope, element, attrs) {
           d3Service.d3().then(function(d3) {
+
+            console.log(scope.dataset);
+            console.log(forecast.forecastData);
             scope.dataset = forecast.forecastData;
 
           var data = scope.dataset;
+
+
 
           // data.forEach(function(d) { d.timestamp = new Date(d.timestamp * 86400); });
 

@@ -4,6 +4,7 @@ const fs = require('fs'),
       Converter = require('csvtojson').Converter,
       converter = new Converter({ignoreEmpty: true});
 
+// creating schema for price file
 let PriceSchema = new mongoose.Schema({
   Product: String,
   SKU: String,
@@ -11,35 +12,22 @@ let PriceSchema = new mongoose.Schema({
   'Revenue Per Unit Sold ($)': {type: Number, default: 0}
 });
 
-let Price = mongoose.model('Price', PriceSchema);
-
-const convertToJson = function(file) {
+// func to covert file from csv to json
+PriceSchema.methods.convertToJson = (file) => {
+  // promise to handle data from file
   return new Promise( (resolve, reject) => {
     converter.on("end_parsed", (jsonData) => {
+      // handling res / rej
       if(!jsonData) {
         reject("CSV to JSON conversion failed!")
       }
       resolve(jsonData);
     });
+    // using fs to read a file and process using converter
     fs.createReadStream(file).pipe(converter);
   });
 };
 
-convertToJson('data/fanco-pricing.csv')
-  // handle the successful data conversion
-  .then( (data) => {
-    mongoose.connection.db.listCollections({name: 'prices'})
-    .next(function(err, collinfo) {
-        if (collinfo) {
-          // The collection exists
-          console.log('exists');
-          Price.collection.updateMany(data);
-        } else {
-          Price.collection.insertMany(data);
-        }
-    });
-  })
-  // handle a rejected promise
-  .then( null, console.log );
+let Price = mongoose.model('Price', PriceSchema);
 
 module.exports = Price;

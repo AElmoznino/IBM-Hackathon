@@ -99,6 +99,7 @@ app.get('/getPrices', (req, res, next) => {
           }
       });
     });
+
     res.send(prices);
   });
 });

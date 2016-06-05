@@ -13,7 +13,13 @@ angular
       })
       .state('forecast', {
         url: '/forecast',
-        templateUrl: '/templates/forecast.html'
+        templateUrl: '/templates/forecast.html',
+        controller: 'ForecastCtrl',
+        resolve: {
+          allData: ['forecast', function(forecast){
+            return forecast.getForecast();
+          }]
+        }
       });
 
       $urlRouterProvider.otherwise('/home');

@@ -4,35 +4,16 @@ angular
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: '/templates/home.html',
-        controller: 'MainCtrl',
-        resolve: {
-          allData: ['sales',function(sales){
-            sales.getAllSales();
-            sales.getPrices();
-          }]
-        }
+        templateUrl: '/templates/home.html'
       })
       .state('sales', {
         url: '/sales',
         templateUrl: '/templates/sales.html',
-        controller: 'SalesCtrl',
-        resolve: {
-          allData: ['sales',function(sales){
-            sales.getAllSales();
-            sales.getPrices();
-          }]
-        }
+        controller: 'SalesCtrl'
       })
       .state('forecast', {
         url: '/forecast',
-        templateUrl: '/templates/forecast.html',
-        resolve: {
-          allData: ['sales',function(sales){
-            sales.getAllSales();
-            sales.getPrices();
-          }]
-        }
+        templateUrl: '/templates/forecast.html'
       });
 
       $urlRouterProvider.otherwise('/home');

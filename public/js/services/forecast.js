@@ -13,7 +13,6 @@ angular
 
         $http.jsonp(url).then(function(data) {
           angular.copy(data.data.daily.data, forecastService.forecastData); // This copies the incoming data inte forecastService.forecastData
-          console.log(forecastService.forecastData);
           deferred.resolve(forecastService.forecastData); // 
         }, function(error){
             console.log('getForecast error: ' + error.toString());

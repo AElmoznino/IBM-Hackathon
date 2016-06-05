@@ -7,8 +7,8 @@ angular
             var fetchData = sales.getJoinSalesAndPrices();
 
             fetchData.then(function (data) {
-              scope.combine = d3func.summarize(data);
-              drawLine(scope.combine);
+              // scope.combine = d3func.summarize(data);
+              drawLine(d3func.summarize(data));
             });
 
             var drawLine = function (result) {

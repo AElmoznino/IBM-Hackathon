@@ -6,7 +6,6 @@ angular
       pricesData: [],
       sales: [],
       prices: {},
-      dataset: [],
 
       getAllSales: function() {
         var sales = {};
@@ -83,8 +82,7 @@ angular
               }
             });
           });
-          this.dataset = data;
-          defer.resolve(this.dataset);
+          defer.resolve(data);
        }, function (err) {
          defer.reject(err);
          console.log(err);

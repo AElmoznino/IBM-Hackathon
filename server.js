@@ -26,6 +26,39 @@ app.get('/getSales', (req, res, next) => {
   Sale.find((err, sales) => {
     if (err) return next(err);
 
+    let sale = new Sale();
+    sale.convertToJson('data/fanco-sales.csv')
+      // handle the successful data conversion
+      // receiving data from file and handling it
+      .then((data) => {
+        //checking if collection exists
+        mongoose.connection.db.listCollections({name: 'sales'})
+        // calling middleware next
+        .next((err, collinfo) => {
+          if (collinfo) {
+            if (sales.length !== Object.keys(data).length) {
+              let collDate = {};
+
+              sales.map((val) => {
+                collDate[val['Week Of']] = true;
+              });
+
+              data.map((val) => {
+                for (var key in collDate) {
+                  if (key !== val['Week Of']) {
+                    // if differents between file and collection
+                    Sale.collection.insertOne(val);
+                  }
+                }
+              });
+            }
+          } else {
+            // if null insert data
+            Sale.collection.insertMany(data);
+          }
+      });
+    });
+    // console.log(sales);
     res.send(sales);
   });
 });
@@ -33,7 +66,39 @@ app.get('/getSales', (req, res, next) => {
 app.get('/getPrices', (req, res, next) => {
   Price.find((err, prices) => {
     if (err) return next(err);
-    
+
+    let price = new Price();
+    price.convertToJson('data/fanco-pricing.csv')
+      // handle the successful data conversion
+      // receiving data from file and handling it
+      .then((data) => {
+        //checking if collection exists
+        mongoose.connection.db.listCollections({name: 'prices'})
+        // calling middleware next
+        .next((err, collinfo) => {
+          if (collinfo) {
+            if (prices.length !== Object.keys(data).length) {
+              let collDate = {};
+
+              prices.map((val) => {
+                collDate[val['SKU']] = true;
+              });
+
+              data.map((val) => {
+                for (var key in collDate) {
+                  if (key !== val['SKU']) {
+                    // if differents between file and collection
+                    Price.collection.insertOne(val);
+                  }
+                }
+              });
+            }
+          } else {
+            // if null insert data
+            Price.collection.insertMany(data);
+          }
+      });
+    });
     res.send(prices);
   });
 });

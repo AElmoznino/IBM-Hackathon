@@ -7,11 +7,11 @@ angular
 
             // Nothing happens or logs from the below. Make sure to pass correct value in line 76.
             console.log(scope.forecast);
-            console.log($scope.forecast);
+            console.log(scope.forecast);
             console.log(forecast);
             console.log(forecast.forecastData);
             scope.forecast = forecast.forecastData;
-
+            console.log("Hello!");
             var data = scope.forecast;
 
             // hardcoded sample GET from forecast.io
@@ -31,8 +31,8 @@ angular
                 bottom: 20,
                 left: 50
               },
-              xScale = d3.time.scale().range([margins.left, width - margins.right]),
-              yScale = d3.scale.linear().range([height - margins.top, margins.bottom]),
+              xScale = d3.time.scale().domain().range([margins.left, width - margins.right]), // TODO: Add domain
+              yScale = d3.scale.linear().range([height - margins.top, margins.bottom]), // TODO: Add domain
               xAxis = d3.svg
                         .axis()
                         .scale(xScale)

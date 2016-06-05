@@ -29,8 +29,8 @@ angular
         templateUrl: '/templates/forecast.html',
         controller: 'ForecastCtrl',
         resolve: {
-          allData: ['forecast',function(forecast){
-            forecast.getForecast();
+          allData: ['forecast', function(forecast){
+            return forecast.getForecast();
           }]
         }
       });

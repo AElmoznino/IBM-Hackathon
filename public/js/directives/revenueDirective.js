@@ -28,7 +28,7 @@ angular
                   // console.log('maxDate: ',maxDate)
 
                   var chart = d3.select('.line').append('svg').attr({
-                              width: w,
+                              width: w + 'px',
                               height: h,
                               margins: margins,
                               id: 'svg'
@@ -138,7 +138,8 @@ angular
                                               .style('opacity',0)
                                     })
 
-              }
+            };//end drawline
+            
           });
 
         }

@@ -2,7 +2,7 @@ angular
   .module('fanCo')
   .factory('d3func', ['sales', function (sales) {
     var getSumByDate = function (data) {
-      // console.log(data);
+      console.log(data);
       var sumObj = {};
       angular.forEach(data, function (val, key) {
         sumObj[val['Week Of']] = [];
@@ -15,7 +15,21 @@ angular
       // console.log(sumObj);
       return sumObj;
     }
+   // var getSumByPlace = function (data) {
+   //      // console.log(data);
+   //      var sumObj = {};
+   //      angular.forEach(data, function (val, key) {
+   //        sumObj[val['Week Of']] = [];
+   //      });
 
+   //      angular.forEach(data, function (val, key) {
+   //        sumObj[val['Week Of']].push(val['Revenue Per Unit Sold ($)'] * val['Sales (Units)']);
+   //      });
+
+   //      // console.log(sumObj);
+   //      return sumObj;
+   //    }
+      
     var getSum = function (data) {
       var sum = [];
 

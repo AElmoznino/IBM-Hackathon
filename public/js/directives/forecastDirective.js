@@ -130,8 +130,8 @@ angular
                                     .duration(500)
                                     .style('opacity', .85)
                             tooltip.html('<strong>Average temperature: ' + roundedSum +'°C</strong>')
-                                    .style("left", (d3.event.pageX) +'px') 
-                                    .style("top", (d3.event.pageY-310)+'px')
+                                    .style("left", (d3.event.pageX -95) +'px') 
+                                    .style("top", (d3.event.pageY-270)+'px')
                           })
 
                            .on('mouseout', function(d){

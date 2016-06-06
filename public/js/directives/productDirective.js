@@ -25,6 +25,23 @@ angular
               // console.log('data :', data)  
 
               
+            var greenProd = d3.values(data)[1];
+            var redProd = d3.values(data)[0];
+            var orangeProd = d3.values(data)[2];
+
+            // console.log('red:',redProd)
+            //obtain sum of red: 
+            var tests = function(redProd) {
+              var newArr = [];
+              var sumRedProd = null;
+              for (var i = 0; i < redProd.length; i++){
+                sumRedProd = redProd[i].sum
+                newArr.push(sumRedProd);
+              }
+              return newArr;
+            }
+            console.log(tests(redProd))
+
             var minMax = function(max) {
               var minMax = null;
               // var max = null;       
@@ -54,7 +71,7 @@ angular
                          
              });                        
              
-             console.log(d3.entries(data))
+             console.log(d3.values(data)[1]) //second product 
 
              var xScale = d3.time.scale()
                              .domain([minMax(false), minMax(true)])
@@ -109,10 +126,11 @@ angular
 
              var lineGen = d3.svg.line()
                   .x(function(d) {
-                    return xScale(d.date);
+                    console.log(d.date)
+                    return xScale(new Date (d.date));
                   })
                   .y(function(d) {
-                    // console.log('d.sum', d)
+                    console.log(tests(redProd))
                     return yScale(d.sum);
                   })
                   .interpolate('linear');
@@ -121,9 +139,7 @@ angular
              var viz = chart.append('svg:path')
 
                    .attr({
-                     'd': lineGen(result, function(d){
-                      console.log(d)
-                     }),
+                     'd': lineGen(redProd),
                      'stroke': 'green',
                      'stroke-width': 1,
                      'fill': 'none'

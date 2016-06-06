@@ -2,33 +2,37 @@ angular
   .module('fanCo')
   .factory('d3func', ['sales', function (sales) {
     var getSumByDate = function (data) {
-      console.log(data);
+      // console.log(data);
       var sumObj = {};
       angular.forEach(data, function (val, key) {
-        sumObj[val['Week Of']] = [];
+        sumObj[val['date']] = [];
       });
 
       angular.forEach(data, function (val, key) {
-        sumObj[val['Week Of']].push(val['Revenue Per Unit Sold ($)'] * val['Sales (Units)']);
+        sumObj[val['date']].push(val['cost'] * val['sales']);
       });
 
       // console.log(sumObj);
       return sumObj;
     }
    
-   var getSumByPlace = function (data) {
+   var getSumByProduct = function (data) {
         // console.log(data);
-        var placeObj = {};
+        var prodObj = {};
         angular.forEach(data, function (val, key) {
-          placeObj[val['Neighborhood']] = [];
+          prodObj[val['product']] = [];
+          // console.log(val)
         });
 
         angular.forEach(data, function (val, key) {
-          placeObj[val['Neighborhood']].push(val['Revenue Per Unit Sold ($)'] * val['Sales (Units)']);
+          prodObj[val['product']].push({
+            date: val.date,
+            sum: val['cost'] * val['sales']
+          });
         });
 
-        console.log(placeObj);
-        return placeObj;
+        console.log(prodObj);
+        return prodObj;
       }
       
     var getSum = function (data) {
@@ -63,7 +67,6 @@ angular
     var summarize = function (data) {
       var result = [],
           l = getSumByDate(data),
-          p = getSumByPlace(data),
           s = getSum(l),
           d = getDate(l);
       angular.forEach(s, function (val, i) {
@@ -95,7 +98,8 @@ angular
 
     return {
       summarize: summarize,
-      sorted: sorted
+      sorted: sorted,
+      getSumByProduct: getSumByProduct
     }
 
   }])

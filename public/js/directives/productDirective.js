@@ -9,7 +9,6 @@ angular
             fetchData.then(function (data) {
               productLine(data);
             });
-
             var h = 500;
             var w = 800;
             var margins ={

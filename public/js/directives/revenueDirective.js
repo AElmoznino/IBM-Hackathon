@@ -127,9 +127,9 @@ angular
                                     tooltip.transition()
                                             .duration(500)
                                             .style('opacity', .85)
-                                    tooltip.html('<strong>Sales $' + roundedSum +'</strong>')
-                                            .style("left", (d3.event.pageX +15) +'px') 
-                                            .style("top", (d3.event.pageY-380)+'px')
+                                    tooltip.html('<strong>Weekly Total Sales $' + roundedSum +'</strong>')
+                                            .style("left", (d3.event.pageX -125) +'px') 
+                                            .style("top", (d3.event.pageY-350)+'px')
                                   })
 
                                    .on('mouseout', function(d){

@@ -93,6 +93,7 @@ angular
                      return xScale(new Date(d.date));
                    })
                    .y(function(d) {
+                    console.log(d.sum)
                      return yScale(Number(d.sum));
                    })
                    .interpolate('linear');

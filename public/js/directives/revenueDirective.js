@@ -128,8 +128,8 @@ angular
                                             .duration(500)
                                             .style('opacity', .85)
                                     tooltip.html('<strong>Weekly Total Sales $' + roundedSum +'</strong>')
-                                            .style("left", (d3.event.pageX -125) +'px') 
-                                            .style("top", (d3.event.pageY-350)+'px')
+                                            .style("left", (d3.event.pageX -95) +'px') 
+                                            .style("top", (d3.event.pageY-370)+'px')
                                   })
 
                                    .on('mouseout', function(d){

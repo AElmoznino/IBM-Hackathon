@@ -27,18 +27,18 @@ angular
           $q.when(this.getPrices())
         ])
         .then(function () {
+          console.log(that.pricesData);
           var data = [];
-          angular.forEach(that.salesData, function (val) {
-            for (var i = 0; i < that.pricesData.length; i++) {
-              if (that.pricesData[i]['SKU'] === val['SKU'] && that.pricesData[i]['Channel'] === val['Channel']) {
+          for (var i = 0; i < that.pricesData.length; i++) {
+            angular.forEach(that.salesData, function (val) {
+              if (that.pricesData[i]['SKU'] === val['SKU'] && val['Channel'] === that.pricesData[i]['Channel']) {
                 val['Revenue Per Unit Sold ($)'] = that.pricesData[i]['Revenue Per Unit Sold ($)'];
               }
-            }
-          });
+            });
+          }
 
           angular.forEach(that.salesData, function (val, key) {
-            angular
-              .extend({}, data.push({
+            data.push({
                 'Week Of': val['Week Of'],
                 'SKU': val['SKU'],
                 'City': val['City'],
@@ -46,7 +46,7 @@ angular
                 'Channel':  val['Channel'],
                 'Sales (Units)': val['Sales (Units)'],
                 'Revenue Per Unit Sold ($)': val['Revenue Per Unit Sold ($)']
-              }));
+              });
           });
 
           defer.resolve(data);

@@ -4,7 +4,13 @@ angular
     $stateProvider
       .state('home', {
         url: '/home',
-        templateUrl: '/templates/home.html'
+        templateUrl: '/templates/home.html',
+        resolve: {
+          getData: ['sales', function (sales) {
+            sales.getAllSales();
+            sales.getPrices();
+          }]
+        }
       })
       .state('sales', {
         url: '/sales',

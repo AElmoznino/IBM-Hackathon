@@ -6,7 +6,7 @@ angular
           // Invoking our d3Service:
           d3Service.d3().then(function(d3) {
           // Sets data to the forecast, making it accessible here as 'data'
-          var data = scope.forecast;
+          var data = scope.forecast.daily.data;
           // Loops through our data and formats time from UNIX timestamp to a 'real' date
           angular.forEach(data, function(d) { 
             d.time = new Date(d.time * 1000); 

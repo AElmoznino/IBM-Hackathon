@@ -1,104 +1,15 @@
 angular
     .module('fanCo')
-    .directive('prices',  ['d3Service', 'sales', function(d3Service, sales) {
+    .directive('prices',  ['d3Service', 'd3func', 'sales', function(d3Service, d3func, sales) {
       return {
         link: function(scope, element, attrs) {
           d3Service.d3().then(function(d3) {
-            scope.dataset = sales.sales;
-            scope.prices = sales.prices;
+            var fetchData = sales.getJoinSalesAndPrices();
 
-
-            // Adding price to
-            angular.forEach(scope.dataset, function (val) {
-              angular.forEach(val, function (prop) {
-                if (scope.prices.hasOwnProperty(prop['SKU'])) {
-                  if (prop['Channel'] === 'Retail') {
-                    prop['Revenue Per Unit Sold ($)'] = scope.prices[prop['SKU']][prop['Channel']];
-                  } else {
-                    prop['Revenue Per Unit Sold ($)'] = scope.prices[prop['SKU']][prop['Channel']];
-                  }
-                }
-              })
+            fetchData.then(function (data) {
+              // scope.combine = d3func.summarize(data);
+              drawLine(d3func.summarize(data));
             });
-
-            var data = scope.dataset;
-            // console.log(data)
-
-            var getSumByDate = function (data) {
-              var sumObj = {};
-              angular.forEach(data, function (val, key) {
-                sumObj[key] = [];
-              });
-
-              angular.forEach(data, function (val, key) {
-                for (var i = 0; i < val.length; i++) {
-                  sumObj[key].push(val[i]['Revenue Per Unit Sold ($)'] * val[i]['Sales (Units)']);
-                }
-              });
-              
-              return sumObj;
-            }
-
-
-            var getSum = function (data) {
-              var sum = [];
-              angular.forEach(data, function (val, key) {
-                var tmp = 0;
-                for (var i = 0; i < val.length; i++) {
-                  tmp += val[i];
-                }
-                sum.push(tmp);
-              });
-              return sum;
-            }
-
-            var getDate = function (data) {
-              var d = [];
-
-              angular.forEach(data, function (v, key) {
-                d.push(new Date(key));
-              });
-
-              return d;
-            }
-
-            // combine sum and dates in array
-            var combine = function (data) {
-              var result = [],
-                  l = getSumByDate(data),
-                  s = getSum(l),
-                  d = getDate(l);
-              angular.forEach(s, function (val, i) {
-                result[i] = {
-                  sum: val,
-                  date: d[i]
-                }
-              });
-
-              return result;
-            };
-
-            var sort = function (data, byDate) {
-              var sortedArr = [];
-              if (byDate) {
-                sortedArr = data.sort(function(x, y) {
-                   return d3.ascending(x.date, y.date);
-                });
-              } else {
-                sortedArr = data.sort(function(x, y) {
-                   return d3.descending(x.sum, y.sum);
-                });
-              }
-
-              return sortedArr;
-            }
-
-
-
-            var result = combine(data),
-                resultByDate = sort(result, true);
-
-            
 
             var h = 500;
             var w = 800;
@@ -108,10 +19,9 @@ angular
                     bottom: 20,
                     left: 50
                 }
-           
 
-            function buildLine(d) {    
-                  console.log(resultByDate)
+            var drawLine = function (result) {
+              var resultByDate = d3func.sorted(result, true)
                   var minDate = resultByDate[0].date;
                   var maxDate = resultByDate[resultByDate.length-1].date;
                   // console.log('mindate: ',minDate)
@@ -228,28 +138,9 @@ angular
                                               .style('opacity',0)
                                     })
 
-              }//end function buildLine
+              }
+          });
 
-              //function for updating the chart according to the user's selection
-              function updateLine(result){
-                
-              } //end function updateLine
-
-
-              buildLine(resultByDate);
-
-              d3.select('select')
-                .on('change', function(d, i){
-                  // console.log(resultByDate)
-                  // console.log('before splice:', months.length)
-                  var sel = d3.select('#date-option').node().value;
-                  // console.log(sel)
-                  resultByDate.splice(0, resultByDate.length-sel);
-                  console.log(resultByDate)
-
-                  // updateLine(resultByDate);
-                })
-          }); 
         }
       }
   }]);

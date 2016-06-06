@@ -5,9 +5,8 @@ angular
       .state('home', {
         url: '/home',
         templateUrl: '/templates/home.html',
-        controller: 'MainCtrl',
         resolve: {
-          allData: ['sales',function(sales){
+          getData: ['sales', function (sales) {
             sales.getAllSales();
             sales.getPrices();
           }]
@@ -16,21 +15,15 @@ angular
       .state('sales', {
         url: '/sales',
         templateUrl: '/templates/sales.html',
-        controller: 'SalesCtrl',
-        resolve: {
-          allData: ['sales',function(sales){
-            sales.getAllSales();
-            sales.getPrices();
-          }]
-        }
+        controller: 'SalesCtrl'
       })
       .state('forecast', {
         url: '/forecast',
         templateUrl: '/templates/forecast.html',
+        controller: 'ForecastCtrl',
         resolve: {
-          allData: ['sales',function(sales){
-            sales.getAllSales();
-            sales.getPrices();
+          allData: ['forecast', function(forecast){
+            return forecast.getForecast();
           }]
         }
       });

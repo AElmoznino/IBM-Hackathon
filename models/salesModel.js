@@ -12,38 +12,20 @@ let SaleSchema = new mongoose.Schema({
   SKU: String,
   Chanel: String,
   'Sales (Units)': {type: Number, default: 0}
-
 });
 
-let Sale = mongoose.model('Sale', SaleSchema);
-
-const convertToJson = function( file ) {
-  return new Promise( (res, rej) => {
+SaleSchema.methods.convertToJson = (file) => {
+  return new Promise( (resolve, reject) => {
     converter.on("end_parsed", (jsonData) => {
       if(!jsonData) {
-        rej("CSV to JSON conversion failed!")
+        reject("CSV to JSON conversion failed!")
       }
-      res(jsonData);
+      resolve(jsonData);
     });
     fs.createReadStream(file).pipe(converter);
   });
 };
 
-convertToJson('./data/fanco-sales.csv')
-  // handle the successful data conversion
-  .then( (data) => {
-    mongoose.connection.db.listCollections({name: 'sales'})
-    .next(function(err, collinfo) {
-        if (collinfo) {
-            // The collection exists
-            console.log('exists');
-            Sale.collection.updateMany(data);
-        } else {
-          Sale.collection.insertMany(data);
-        }
-    });
-  })
-  // handle a rejected promise
-  .then( null, console.log );
+let Sale = mongoose.model('Sale', SaleSchema);
 
 module.exports = Sale;

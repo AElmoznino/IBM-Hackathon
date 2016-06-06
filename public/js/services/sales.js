@@ -1,6 +1,6 @@
 angular
   .module('fanCo')
-  .factory('sales', ['$http', function($http) {
+  .factory('sales', ['$http', '$q', function($http, $q) {
     var salesService = {
       salesData: [],
       pricesData: [],
@@ -61,8 +61,36 @@ angular
           });
           salesService.prices = prices;
         });
-      }
-    }
+      },
+
+      getJoinSalesAndPrices: function () {
+        var defer = $q.defer();
+        $q.all([
+          $q.when(this.getAllSales()),
+          $q.when(this.getPrices())
+        ])
+        .then(function () {
+          var data = salesService.sales;
+          angular.forEach(data, function (val) {
+            angular.forEach(val, function (prop) {
+              if (salesService.prices.hasOwnProperty(prop['SKU'])) {
+                if (prop['Channel'] === 'Retail') {
+                  prop['Revenue Per Unit Sold ($)'] = salesService.prices[prop['SKU']][prop['Channel']];
+                } else {
+                  prop['Revenue Per Unit Sold ($)'] = salesService.prices[prop['SKU']][prop['Channel']];
+                }
+              }
+            });
+          });
+          defer.resolve(data);
+       }, function (err) {
+         defer.reject(err);
+         console.log(err);
+       });
+
+       return defer.promise;
+     }
+   }
 
     return salesService;
   }]);

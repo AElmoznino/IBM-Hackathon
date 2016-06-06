@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "IBM project using MEAN stack and D3.js",
   "main": "server.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AElmoznino/IBM-Hackathon"
+  },
   "scripts": {
     "start": "gulp"
+  },
+  "engines": {
+    "node": "5.2.0"
   },
   "author": "",
   "license": "ISC",

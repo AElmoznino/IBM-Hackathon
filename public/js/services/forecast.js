@@ -12,7 +12,7 @@ angular
           url = ['https://api.forecast.io/forecast/', apiKey, '/', lat, ',', lon, '?exclude=currently,minutely,hourly,alerts,flags&units=si&callback=JSON_CALLBACK'].join('');
 
         $http.jsonp(url).then(function(data) {
-          angular.copy(data.data.daily.data, forecastService.forecastData); // This copies the incoming data inte forecastService.forecastData
+          angular.copy(data.data, forecastService.forecastData); // This copies the incoming data inte forecastService.forecastData
           deferred.resolve(forecastService.forecastData); // 
         }, function(error){
             console.log('getForecast error: ' + error.toString());

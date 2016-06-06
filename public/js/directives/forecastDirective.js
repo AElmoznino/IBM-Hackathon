@@ -11,6 +11,10 @@ angular
           angular.forEach(data, function(d) { 
             d.time = new Date(d.time * 1000); 
           });
+          // console.log(data);
+          angular.forEach(data, function(d) {
+            d.temperatureAvg = ((d.temperatureMax + d.temperatureMin) / 2);
+          });
           console.log(data);
 
           // maxTempCalc returns the temperatureMax from the dataset (i.e. the highest temperature). Can be used to return the min temp too.
@@ -87,7 +91,7 @@ angular
                   return xScale(new Date(d.time));
                })
                .y(function(d) {
-                  return yScale(Number(d.temperatureMax));
+                  return yScale(Number(d.temperatureAvg));
                })
                .interpolate('basis');
 

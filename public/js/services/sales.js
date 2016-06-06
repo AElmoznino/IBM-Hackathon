@@ -29,17 +29,11 @@ angular
         .then(function () {
           var data = [];
           angular.forEach(that.salesData, function (val) {
-            angular.forEach(val, function (prop, key) {
-              for (var i = 0; i < that.pricesData.length; i++) {
-                if (that.pricesData[i]['SKU'] === prop) {
-                  if (key === 'Retail') {
-                    val['Revenue Per Unit Sold ($)'] = that.pricesData[i]['Revenue Per Unit Sold ($)'];
-                  } else {
-                    val['Revenue Per Unit Sold ($)'] = that.pricesData[i]['Revenue Per Unit Sold ($)'];
-                  }
-                }
+            for (var i = 0; i < that.pricesData.length; i++) {
+              if (that.pricesData[i]['SKU'] === val['SKU'] && that.pricesData[i]['Channel'] === val['Channel']) {
+                val['Revenue Per Unit Sold ($)'] = that.pricesData[i]['Revenue Per Unit Sold ($)'];
               }
-            });
+            }
           });
 
           angular.forEach(that.salesData, function (val, key) {
@@ -54,8 +48,6 @@ angular
                 'Revenue Per Unit Sold ($)': val['Revenue Per Unit Sold ($)']
               }));
           });
-
-          // console.log(data);
 
           defer.resolve(data);
        }, function (err) {

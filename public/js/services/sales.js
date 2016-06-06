@@ -45,6 +45,7 @@ angular
           angular.forEach(that.salesData, function (val, key) {
             angular
               .extend({}, data.push({
+                'Week Of': val['Week Of'],
                 'SKU': val['SKU'],
                 'City': val['City'],
                 'Neighborhood': val['Neighborhood'],
@@ -52,8 +53,9 @@ angular
                 'Sales (Units)': val['Sales (Units)'],
                 'Revenue Per Unit Sold ($)': val['Revenue Per Unit Sold ($)']
               }));
-          })
-          console.log(data);
+          });
+
+          // console.log(data);
 
           defer.resolve(data);
        }, function (err) {

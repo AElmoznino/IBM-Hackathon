@@ -4,14 +4,13 @@ angular
     var getSumByDate = function (data) {
       var sumObj = {};
       angular.forEach(data, function (val, key) {
-        sumObj[key] = [];
+        sumObj[val['Week Of']] = [];
       });
 
       angular.forEach(data, function (val, key) {
-        for (var i = 0; i < val.length; i++) {
-          sumObj[key].push(val[i]['Revenue Per Unit Sold ($)'] * val[i]['Sales (Units)']);
-        }
+        sumObj[val['Week Of']].push(val['Revenue Per Unit Sold ($)'] * val['Sales (Units)']);
       });
+      console.log(sumObj);
 
       return sumObj;
     }

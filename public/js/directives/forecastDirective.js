@@ -97,20 +97,14 @@ angular
                .attr('stroke-width', 1)
                .attr('fill', 'none');
 
-          // TODO:
-
-          // lineGen
-          // add path
+          // TODO: Display the minimum temperature
 
 
           // Displays the X axis text with a 45° tilt for a nicer look: 
-          //     chart.selectAll('.x text ')
-          //          .attr('transform', function(d) {
-          //               // console.log( this.getBBox());
-          //               return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
-          //             });
-
-
+          chart.selectAll('.x text ')
+               .attr('transform', function(d) {
+                  return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
+                });
 
           });
         }

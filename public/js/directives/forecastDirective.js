@@ -93,7 +93,7 @@ angular
                .y(function(d) {
                   return yScale(Number(d.temperatureAvg));
                })
-               .interpolate('basis');
+               .interpolate('linear');
 
           chart.append('svg:path')
                .attr('d', lineGen(data)) // TODO: Verify what to pass into it
@@ -109,6 +109,37 @@ angular
                .attr('transform', function(d) {
                   return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
                 });
+
+          var tooltip =  d3.select('.line').append('div')
+                                    .attr('class', 'tooltip')
+                                    .style('opacity', 0)
+
+          var dots = chart.selectAll('circle')
+                          .data(data)
+                          .enter()
+                          .append('circle')
+                          .attr({
+                            cx: function(d) {return xScale(new Date(d.time));},
+                            cy: function(d) {return yScale(Number(d.temperatureAvg));},
+                            r: 4
+                          })
+                          .on('mouseover', function(d){
+                            var roundedSum = d3.round(d.temperatureAvg,1);
+                            console.log(roundedSum)
+                            tooltip.transition()
+                                    .duration(500)
+                                    .style('opacity', .85)
+                            tooltip.html('<strong>Average temperature: ' + roundedSum +'°C</strong>')
+                                    .style("left", (d3.event.pageX) +'px') 
+                                    .style("top", (d3.event.pageY-310)+'px')
+                          })
+
+                           .on('mouseout', function(d){
+                              tooltip.transition()
+                                      .duration(300)
+                                      .style('opacity',0)
+                            })
+
 
           });
         }

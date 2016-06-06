@@ -15,20 +15,21 @@ angular
       // console.log(sumObj);
       return sumObj;
     }
-   // var getSumByPlace = function (data) {
-   //      // console.log(data);
-   //      var sumObj = {};
-   //      angular.forEach(data, function (val, key) {
-   //        sumObj[val['Week Of']] = [];
-   //      });
+   
+   var getSumByPlace = function (data) {
+        // console.log(data);
+        var placeObj = {};
+        angular.forEach(data, function (val, key) {
+          placeObj[val['Neighborhood']] = [];
+        });
 
-   //      angular.forEach(data, function (val, key) {
-   //        sumObj[val['Week Of']].push(val['Revenue Per Unit Sold ($)'] * val['Sales (Units)']);
-   //      });
+        angular.forEach(data, function (val, key) {
+          placeObj[val['Neighborhood']].push(val['Revenue Per Unit Sold ($)'] * val['Sales (Units)']);
+        });
 
-   //      // console.log(sumObj);
-   //      return sumObj;
-   //    }
+        console.log(placeObj);
+        return placeObj;
+      }
       
     var getSum = function (data) {
       var sum = [];
@@ -62,6 +63,7 @@ angular
     var summarize = function (data) {
       var result = [],
           l = getSumByDate(data),
+          p = getSumByPlace(data),
           s = getSum(l),
           d = getDate(l);
       angular.forEach(s, function (val, i) {

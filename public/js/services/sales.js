@@ -45,13 +45,13 @@ angular
           //sending to directives data with specific elements
           angular.forEach(that.salesData, function (val, key) {
             data.push({
-                'Week Of': val['Week Of'],
-                'SKU': val['SKU'],
-                'City': val['City'],
-                'Neighborhood': val['Neighborhood'],
-                'Channel':  val['Channel'],
-                'Sales (Units)': val['Sales (Units)'],
-                'Revenue Per Unit Sold ($)': val['Revenue Per Unit Sold ($)']
+                'date': val['Week Of'],
+                'product': val['SKU'],
+                'city': val['City'],
+                'neighborhood': val['Neighborhood'],
+                'channel':  val['Channel'],
+                'sales': val['Sales (Units)'],
+                'cost': val['Revenue Per Unit Sold ($)']
               });
           });
           // resolving a promise

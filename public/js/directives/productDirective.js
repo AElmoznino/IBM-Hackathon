@@ -22,10 +22,6 @@ angular
               var data = d3func.getSumByProduct(result);
               var revenueData = d3func.getSumByDate(result)
 
-              var redProd = d3.values(data)[0];
-              var greenProd = d3.values(data)[1];
-              var orangeProd = d3.values(data)[2];
-
               // min-max of the date
               var minMax = function(max) {
                 var minMax = null;
@@ -64,7 +60,7 @@ angular
 
               var yScale = d3.scale
                             .linear()
-                            .domain([0, 75000]) //hardcoded, needs to be adjusted to be dynamic
+                            .domain([0, 72000]) //hardcoded, needs to be adjusted to be dynamic
                             .range([h - margins.top, margins.bottom]);
 
               var xAxisGen = d3.svg
@@ -118,38 +114,8 @@ angular
                             .interpolate('monotone');
 
 
-                var vis = chart.append('path')
-                            .attr({
-                              'd': lineGen(redProd.sort(function (a, b) {
-                                return new Date(a.date) - new Date(b.date)
-                              })),
-                              'stroke': 'red',
-                              'stroke-width': 1,
-                              'fill': 'none'
-                            });
-
-                vis = chart.append('path')
-                  .attr({
-                    'd': lineGen(greenProd.sort(function (a, b) {
-                      return new Date(a.date) - new Date(b.date)
-                    })),
-                    'stroke': 'green',
-                    'stroke-width': 1,
-                    'fill': 'none'
-                  });
-
-                vis = chart.append('path')
-                  .attr({
-                    'd': lineGen(orangeProd.sort(function (a, b) {
-                      return new Date(a.date) - new Date(b.date)
-                    })),
-                    'stroke': 'orange',
-                    'stroke-width': 1,
-                    'fill': 'none'
-                });
-
                 // overall function on everything
-                vis = chart.append('path')
+              var  vis = chart.append('path')
                   .attr({
                     'd': lineGen(d3.values(revenueData).sort(function (a, b) {
                       return new Date(a.date) - new Date(b.date)
@@ -159,12 +125,56 @@ angular
                     'fill': 'none'
                   });
 
-                // chart.selectAll('g')
-                //     .data(redProd)
-                //     .enter()
-                //     .on('mouseover', function(d) {
-                //       console.log(d);
-                //     })
+                	//append a g tag for each line and set of tooltip circles and give it a unique ID based on the column name of the data
+                	 vis = chart.selectAll('.line')
+          	              .data(d3.entries(data))
+                          .enter()
+                          .append('g')
+                  		    // .attr('clip-path', 'url(#clip)')
+                	        .attr('class', 'line')
+                          .attr('fill', 'none')
+                      	  .attr('id', function(d, i) {
+                            return d.key.substr(0, d.key.indexOf(' ')).toLowerCase()+'-line';
+                          })
+                	  	    .on('mouseover', function (d) {
+                            var selectNotThis = $('.line').not(this);
+                            //
+                            d3.selectAll('g:not(#'+ this.id +')')
+                              .selectAll('.line')
+      		                    .style('opacity', .2);
+
+                            d3.select(this)
+                              .style('stroke-width', '3px');
+                        	})
+                        	.on('mouseout',	function(d) {        //undo everything on the mouseout
+                          		d3.select(this)
+                            		.style('stroke-width','1px');
+
+                              d3.selectAll('.line')
+        		                    .style('opacity', 1);
+                    	    });
+
+                  vis.append('path')
+                        	.attr('class', 'line')
+                        	.style('stroke', function (d) {
+                        	  return d.key.substr(0, d.key.indexOf(' ')).toLowerCase();
+                        	})
+                        	.attr('d', function(d) {
+                            return lineGen(d.value.sort(function (a, b) {
+                              return new Date(a.date) - new Date(b.date)
+                        	   }));
+                           })
+                        	.transition()
+                        	.duration(4000)
+                        	.attrTween('d', function (d) {
+                  			       var interpolate = d3.scale.quantile()
+                  				         .domain([0, 1])
+                  				         .range(d3.range(1, d.value.length+1));
+
+                    			return function(t) {
+                    				return lineGen(d.value.slice(0, interpolate(t)));
+                    			};
+                    		});
 
             };//end productline
 

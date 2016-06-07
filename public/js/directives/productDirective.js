@@ -7,7 +7,7 @@ angular
             var fetchData = sales.getJoinSalesAndPrices();
 
             fetchData.then(function (data) {
-              productLine(data);
+              updateLine(data);
               var datos = data;
 
               d3.select('select')
@@ -76,7 +76,7 @@ angular
 
               var yScale = d3.scale
                             .linear()
-                            .domain([0, 72000]) //hardcoded, needs to be adjusted to be dynamic
+                            .domain([0, 12000]) //hardcoded, needs to be adjusted to be dynamic
                             .range([h - margins.top, margins.bottom]);
 
               var xAxisGen = d3.svg
@@ -130,19 +130,8 @@ angular
                             .interpolate('monotone');
 
 
-                // overall function on everything
-              var  vis = chart.append('path')
-                  .attr({
-                    'd': lineGen(d3.values(revenueData).sort(function (a, b) {
-                      return new Date(a.date) - new Date(b.date)
-                    })),
-                    'stroke': 'blue',
-                    'stroke-width': 1,
-                    'fill': 'none'
-                  });
-
                 	//append a g tag for each line and set of tooltip circles and give it a unique ID based on the column name of the data
-                	 vis = chart.selectAll('.line')
+                	 var vis = chart.selectAll('.line')
           	              .data(d3.entries(data))
                           .enter()
                           .append('g')

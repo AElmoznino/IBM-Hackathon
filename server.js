@@ -4,14 +4,11 @@ const express = require('express'),
       favicon = require('serve-favicon'),
       path = require('path'),
       bodyParser = require('body-parser'),
-      Converter = require('csvtojson').Converter,
-      converter = new Converter({ignoreEmpty: true}),
-      port = process.env.PORT || '8080',
-      cron = require('cron').CronJob, 
-      forecast = require('forecast.io'),
-      client = require('twilio')(process.env.TWILIO_TEST_SID, process.env.TWILIO_TEST_AUTH_TOKEN); //require the Twilio module and create a REST client
+      port = process.env.PORT || '8080';
 
 const app = express();
+
+// require('./twilio/twilio'); // Comment this out to have the Twilio automatic SMS notifications running
 
 mongoose.connect(process.env.MONGOLAB_ROSE_URI || 'mongodb://localhost/fanco-db');
 
@@ -76,23 +73,5 @@ app.get('/getPrices', (req, res, next) => {
   });
 });
 
-client.sendMessage({
-  to:'+972534208007',
-  from: '+15005550006',
-  body: 'Hey there from Twilio!'
-}, function(err, responseData) { //this function is executed when a response is received from Twilio
-
-    if (!err) { // "err" is an error received during the request, if any
-
-        // "responseData" is a JavaScript object containing data received from Twilio.
-        // A sample response from sending an SMS message is here (click "JSON" to see how the data appears in JavaScript):
-        // http://www.twilio.com/docs/api/rest/sending-sms#example-1
-
-        console.log(responseData.from); // outputs "+14506667788"
-        console.log(responseData.body); // outputs "word to your mother."
-
-    }
-}
-);
 
 app.listen(port);

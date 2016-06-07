@@ -363,6 +363,24 @@ div.tooltip {
   z-index: 10;
 }
 
+/*for the channel tooltip*/
+.tooltip3 {
+  background-color: red;
+  position: absolute;
+  top: -520px;
+  left: 520px;
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: black;
+  display: block;
+  font-size: 14px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  z-index: 10;
+}
+
 .label {
   color: black;
 }

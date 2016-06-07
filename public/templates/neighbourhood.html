@@ -4,30 +4,22 @@
         <h1>Sales Data</h1>
         <p>Select your view:</p>
         <div class="mb">
-          <button type="button" class="btn btn-default active">Total</button>
+          <button type="button" class="btn btn-default" ui-sref="sales">Total</button>
           <button type="button" class="btn btn-default disabled">Product</button>
-          <button type="button" class="btn btn-default" ui-sref="neighbourhood">Neighborhood</button>
+          <button type="button" class="btn btn-default active">Neighborhood</button>
           <button type="button" class="btn btn-default disabled">Channel</button>
         </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-10 col-md-offset-1 graph-card mt" min-height="500px">
-      <h2 class="mt">Displaying sales by: Total</h2>
+    <div class="col-md-10 col-md-offset-1 graph-card" min-height="500px">
+      <h2 class="mt">Displaying total sales by: Neighborhood</h2>
       <!-- <prices class="line"></prices> -->
-      <product class="lines"></prices>
-      <!-- <pie id="chart"></pie> -->
+      <!-- <product class="lines"></prices> -->
+      <pie id="chart"></pie>
     </div>
-    <div class="col-md-10 mt">
-      <p>Choose Date Range
-          <select id="date-option">
-            <option value="12" >Last Year</option>
-            <option value="6" >Last 6 Months</option>
-            <option value="3" >Last Quarter</option>
-          </select>
-      </p>
-    </div>
+    
   </div>
 
   <div class="row">

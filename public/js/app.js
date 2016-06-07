@@ -17,6 +17,11 @@ angular
         templateUrl: '/templates/sales.html',
         controller: 'SalesCtrl'
       })
+      .state('neighbourhood', {
+        url: '/neighbourhood',
+        templateUrl: '/templates/neighbourhood.html',
+        controller: 'SalesCtrl'
+      })
       .state('forecast', {
         url: '/forecast',
         templateUrl: '/templates/forecast.html',

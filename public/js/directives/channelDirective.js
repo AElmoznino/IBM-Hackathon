@@ -104,7 +104,10 @@ var svg = d3.select("#chart").append("svg")
       .attr("width", x.rangeBand())
       .attr("y", function(d) { return y(d.y1); })
       .attr("height", function(d) { return y(d.y0) - y(d.y1); })
-      .style("fill", function(d) { return color(d.name); });
+      .style("fill", function(d) { return color(d.name); })
+      .on("mouseover", function() { tooltip.style("display", "block"); })
+      .on("mouseout", function() { tooltip.style("display", "none"); })
+      
 
   var legend = svg.selectAll(".legend")
       .data(color.domain().slice().reverse())
@@ -123,7 +126,36 @@ var svg = d3.select("#chart").append("svg")
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
-      .text(function(d) { return d; });
+      .text(function(d) { 
+        console.log(d.ages);
+        return d; });
+
+
+
+  // Prep the tooltip bits, initial display is hidden
+
+  var tooltip = d3.select('#chart')             
+    .append('div')                             
+    .attr('class', 'tooltip3')
+
+
+  tooltip.append('div')                       
+    .attr('class', 'label')
+      
+  tooltip.append("rect")
+    .attr("width", 30)
+    .attr("height", 20)
+    .attr("fill", "red")
+    .attr("top", "-260px")
+    .attr("left", "520px")
+    .style("opacity", 0.5)
+
+  tooltip.append("text")
+    .attr("x", 15)
+    .attr("dy", "1.2em")
+    .style("text-anchor", "middle")
+    .attr("font-size", "12px")
+    .attr("font-weight", "bold");
 
 
           //end productline

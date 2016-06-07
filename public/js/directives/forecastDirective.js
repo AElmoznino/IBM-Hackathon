@@ -31,8 +31,8 @@ angular
 
           // Define our chart and appending our svg to it
           var chart = d3.select('.line').append('svg'),
-              w = 800,
-              h = 500,
+              w = 500,
+              h = 300,
               margins = {
                 top: 20,
                 right: 20,

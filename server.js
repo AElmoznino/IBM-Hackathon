@@ -4,11 +4,11 @@ const express = require('express'),
       favicon = require('serve-favicon'),
       path = require('path'),
       bodyParser = require('body-parser'),
-      Converter = require('csvtojson').Converter,
-      converter = new Converter({ignoreEmpty: true}),
       port = process.env.PORT || '8080';
 
 const app = express();
+
+// require('./twilio/twilio'); // Comment this out to have the Twilio automatic SMS notifications running
 
 mongoose.connect(process.env.MONGOLAB_ROSE_URI || 'mongodb://localhost/fanco-db');
 
@@ -72,5 +72,6 @@ app.get('/getPrices', (req, res, next) => {
 
   });
 });
+
 
 app.listen(port);

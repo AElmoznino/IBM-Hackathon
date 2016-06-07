@@ -10,146 +10,165 @@ angular
               productLine(data);
             });
             var h = 500;
-            var w = 800;
-            var margins ={
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 50
+            var w = 1000;
+            var margins = {
+                top: 20,
+                right: 20,
+                bottom: 20,
+                left: 50
+            }
+
+            var productLine = function (result) {
+              var data = d3func.getSumByProduct(result);
+              var revenueData = d3func.getSumByDate(result)
+
+              var redProd = d3.values(data)[0];
+              var greenProd = d3.values(data)[1];
+              var orangeProd = d3.values(data)[2];
+
+              // min-max of the date
+              var minMax = function(max) {
+                var minMax = null;
+                if (max) {
+                  angular.forEach(data, function(val) {
+                    minMax = d3.max(val, function(d) {
+                      return new Date(d.date)
+                    });
+                  });
+                } else {
+                  angular.forEach(data, function(val) {
+                    minMax = d3.min(val, function(d) {
+                      return new Date(d.date)
+                    });
+                  });
                 }
-          
-
-          var productLine = function (result) {
-              var data = d3func.getSumByProduct(result); 
-              // console.log('data :', data)  
-
-              
-            var greenProd = d3.values(data)[1];
-            var redProd = d3.values(data)[0];
-            var orangeProd = d3.values(data)[2];
-
-            // console.log('red:',redProd)
-            //obtain sum of red: 
-            var tests = function(redProd) {
-              var newArr = [];
-              var sumRedProd = null;
-              for (var i = 0; i < redProd.length; i++){
-                sumRedProd = redProd[i].sum
-                newArr.push(sumRedProd);
-              }
-              return newArr;
-            }
-            console.log(tests(redProd))
-
-            var minMax = function(max) {
-              var minMax = null;
-              // var max = null;       
-              if (max) {
-                angular.forEach(data, function(val) {
-                  minMax = d3.max(val, function(d) {
-                    return new Date(d.date)
-                  });
-                });
-            
-              } else {
-                angular.forEach(data, function(val) {
-                  minMax = d3.min(val, function(d) {
-                    return new Date(d.date)
-                  });
-                });
+                return minMax;
               }
 
-              return minMax;
-            }
+              var moximum = function (data) {
 
-            
-             var chart = d3.select('.lines').append('svg').attr({
-                         width: w,
-                         height: h,
-                         margins: margins,
-                         
-             });                        
-             
-             console.log(d3.values(data)[1]) //second product 
+              }
 
-             var xScale = d3.time.scale()
-                             .domain([minMax(false), minMax(true)])
-                             .range([margins.left, w - margins.right])
-                             // .nice()
-             var yScale = d3.scale.linear()
-                              .domain([0, 10000]) //hardcoded, needs to be adjusted to be dynamic
-                              .range([h - margins.top, margins.bottom])
-                              .nice()
-             
-             var xAxisGen = d3.svg
-                           .axis()
-                           .scale(xScale)
-                           .ticks(12)
-                           .tickSize(1)
-                           .tickFormat(d3.time.format('%b %y'))                             
-             
-             var yAxisGen = d3.svg
+              var chart = d3.select('.lines')
+                     .append('svg')
+                     .attr({
+                        width: w,
+                        height: h,
+                        margin: 20,
+              });
+
+              var xScale = d3.time
+                           .scale()
+                           .domain([minMax(false), minMax(true)])
+                           .range([margins.left, w - margins.right]);
+
+              var yScale = d3.scale
+                            .linear()
+                            .domain([0, 75000]) //hardcoded, needs to be adjusted to be dynamic
+                            .range([h - margins.top, margins.bottom]);
+
+              var xAxisGen = d3.svg
+                            .axis()
+                            .scale(xScale)
+                            .ticks(12)
+                            .tickSize(0)
+                            .tickFormat(d3.time.format('%b %y'));
+
+               var yAxisGen = d3.svg
                            .axis()
                            .scale(yScale)
-                           .ticks(20)
-                           .tickSize(1)
+                           .ticks(10)
+                           .tickSize(0)
                            .orient('left');
 
-               
+               chart.attr({
+                 'width': w + margins.left + margins.right,
+                 'height': h + margins.top + margins.bottom
+               });
 
-             chart.attr({
-               'width': w + margins.left + margins.right,
-               'height': h + margins.top + margins.bottom
-             })
+               var xAxis = chart.append('g')
+                          .call(xAxisGen)
+                          .attr({
+                            'class': 'x axis',
+                            'transform': 'translate(0,' + (h - margins.bottom) + ')',
+                            'shape-rendering': 'crispEdges'
+                          });
 
-             var xAxis = chart.append('g').call(xAxisGen)
+               var yAxis = chart.append('g')
+                          .call(yAxisGen)
+                          .attr({
+                            'class': 'y axis',
+                            'transform': 'translate(' + (margins.left) + ',0)',
+                            'shape-rendering':'crispEdges'
+                          })
+
+
+               chart.selectAll('.x text')  // select all the text elements for the xaxis
+                    .attr('transform', function(d) {
+                      return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
+                    });
+
+               var lineGen = d3.svg.line()
+                            .x(function(d) {
+                              return xScale(new Date (d.date));
+                            })
+                            .y(function(d) {
+                              return yScale(d.sum);
+                            })
+                            .interpolate('monotone');
+
+
+                var vis = chart.append('path')
+                            .attr({
+                              'd': lineGen(redProd.sort(function (a, b) {
+                                return new Date(a.date) - new Date(b.date)
+                              })),
+                              'stroke': 'red',
+                              'stroke-width': 1,
+                              'fill': 'none'
+                            });
+
+                vis = chart.append('path')
                   .attr({
-                     'class': 'x-axis',
-                     'transform': 'translate(0,' + (h - margins.bottom) + ')',
-                     'shape-rendering': 'crispEdges'
-                   })
+                    'd': lineGen(greenProd.sort(function (a, b) {
+                      return new Date(a.date) - new Date(b.date)
+                    })),
+                    'stroke': 'green',
+                    'stroke-width': 1,
+                    'fill': 'none'
+                  });
 
-             var yAxis = chart.append('g').call(yAxisGen)
-                   .attr({
-                     'class': 'y-axis',
-                     'transform': 'translate(' + (margins.left) + ',0)',
-                     'shape-rendering':'crispEdges'
-                   })
-                  
+                vis = chart.append('path')
+                  .attr({
+                    'd': lineGen(orangeProd.sort(function (a, b) {
+                      return new Date(a.date) - new Date(b.date)
+                    })),
+                    'stroke': 'orange',
+                    'stroke-width': 1,
+                    'fill': 'none'
+                });
 
-             chart.selectAll('.x-axis text')  // select all the text elements for the xaxis
-                   .attr('transform', function(d) {
-                     // console.log( this.getBBox());
-                     return 'translate(' + this.getBBox().height + ',' + this.getBBox().height + ')rotate(-45)';
-                   });
+                // overall function on everything
+                vis = chart.append('path')
+                  .attr({
+                    'd': lineGen(d3.values(revenueData).sort(function (a, b) {
+                      return new Date(a.date) - new Date(b.date)
+                    })),
+                    'stroke': 'blue',
+                    'stroke-width': 1,
+                    'fill': 'none'
+                  });
 
-             var lineGen = d3.svg.line()
-                  .x(function(d) {
-                    console.log(d.date)
-                    return xScale(new Date (d.date));
-                  })
-                  .y(function(d) {
-                    console.log(tests(redProd))
-                    return yScale(d.sum);
-                  })
-                  .interpolate('linear');
+                // chart.selectAll('g')
+                //     .data(redProd)
+                //     .enter()
+                //     .on('mouseover', function(d) {
+                //       console.log(d);
+                //     })
 
+            };//end productline
 
-             var viz = chart.append('svg:path')
-
-                   .attr({
-                     'd': lineGen(redProd),
-                     'stroke': 'green',
-                     'stroke-width': 1,
-                     'fill': 'none'
-                   });
-
-            
-
-          };//end productline
-            
           });
-
         }
       }
-  }]);
+    }]);

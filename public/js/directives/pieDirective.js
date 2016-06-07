@@ -13,7 +13,7 @@ angular
         
           var dataset = 
             [
-            {label: "Allston", sales: 5000000},
+            {label: "Allston", sales: 12340},
             {label: "Back Bay", sales: 123150 },
             {label: "Charlestown", sales: 250655}
           ]
@@ -22,7 +22,8 @@ angular
           var height = 400;
           var radius = Math.min(width, height) / 2;
 
-          var color = d3.scale.category20b();
+          var color = d3.scale.category20c();
+          var donutWidth = 75;
 
           // Alternative
           // var color = d3.scale.ordinal()
@@ -41,6 +42,7 @@ angular
           // To define the radius we use D3's svg.arc() and provide its outerRadius() method with the radius we defined earlier:
 
           var arc = d3.svg.arc()
+            .innerRadius(radius - donutWidth)
             .outerRadius(radius);            
 
           // For the start and end angles of the segments, we use D3's layout.pie():

@@ -272,9 +272,9 @@ rect {
 }
 
 /* Chart styling */
-svg {
+/*svg {
   padding-left: 20px;
-}
+}*/
 
 .axis text {
     font-family: 'Roboto Slab', sans-serif;
@@ -354,7 +354,7 @@ div.tooltip {
   color: #333;
   display: block;
   font-size: 12px;
-  left: 130px;
+  left: 420px;
   padding: 10px;
   position: absolute;
   text-align: center;

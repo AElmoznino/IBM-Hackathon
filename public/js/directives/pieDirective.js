@@ -110,7 +110,6 @@ angular
                      
 
           path.on('mouseover', function(d) {
-            tooltip.style('top', (d3.event.layerY / 10) + 'px')
             var total = d3.sum(dataset.map(function(d) {
               return d.sales;
             }));

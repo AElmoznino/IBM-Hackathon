@@ -27,8 +27,8 @@ p, a {
   color: white;
 }
 
-.mt {margin-top: 40px;}
-.mb {margin-bottom: 40px;}
+.mt {margin-top: 25px;}
+.mb {margin-bottom: 25px;}
 
 /* NAVBAR */
 
@@ -71,6 +71,7 @@ p, a {
   min-height: 1200px;
     -webkit-filter: grayscale(1);
   filter: grayscale(1);
+
 }
 
 .weather-div {

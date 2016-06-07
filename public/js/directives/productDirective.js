@@ -22,10 +22,6 @@ angular
               var data = d3func.getSumByProduct(result);
               var revenueData = d3func.getSumByDate(result)
 
-              var redProd = d3.values(data)[0];
-              var greenProd = d3.values(data)[1];
-              var orangeProd = d3.values(data)[2];
-
               // min-max of the date
               var minMax = function(max) {
                 var minMax = null;
@@ -64,7 +60,7 @@ angular
 
               var yScale = d3.scale
                             .linear()
-                            .domain([0, 11000]) //hardcoded, needs to be adjusted to be dynamic
+                            .domain([0, 72000]) //hardcoded, needs to be adjusted to be dynamic
                             .range([h - margins.top, margins.bottom]);
 
               var xAxisGen = d3.svg
@@ -117,51 +113,45 @@ angular
                             })
                             .interpolate('monotone');
 
-                //
-                // // overall function on everything
-                // vis = chart.append('path')
-                //   .attr({
-                //     'd': lineGen(d3.values(revenueData).sort(function (a, b) {
-                //       return new Date(a.date) - new Date(b.date)
-                //     })),
-                //     'stroke': 'blue',
-                //     'stroke-width': 1,
-                //     'fill': 'none'
-                //   });
 
-                  //make a clip path for the graph
-                 var clip = chart.append('svg:clipPath')
-                    .attr('id', 'clip')
-                    .append('svg:rect')
-                    .attr('x', 0)
-                    .attr('y', 0)
-                    .attr('width', w)
-                    .attr('height', h);
+                // overall function on everything
+              var  vis = chart.append('path')
+                  .attr({
+                    'd': lineGen(d3.values(revenueData).sort(function (a, b) {
+                      return new Date(a.date) - new Date(b.date)
+                    })),
+                    'stroke': 'blue',
+                    'stroke-width': 1,
+                    'fill': 'none'
+                  });
 
                 	//append a g tag for each line and set of tooltip circles and give it a unique ID based on the column name of the data
-                	var vis = chart.selectAll('.line')
+                	 vis = chart.selectAll('.line')
           	              .data(d3.entries(data))
                           .enter()
                           .append('g')
-                  		    .attr('clip-path', 'url(#clip)')
+                  		    // .attr('clip-path', 'url(#clip)')
                 	        .attr('class', 'line')
                           .attr('fill', 'none')
                       	  .attr('id', function(d, i) {
                             return d.key.substr(0, d.key.indexOf(' ')).toLowerCase()+'-line';
                           })
                 	  	    .on('mouseover', function (d) {
-                        		d3.select(this)                          //on mouseover of each line, give it a nice thick stroke
-                          	  .style('stroke-width','3px');
-                              console.log(this.id);
-                            d3.selectAll('.line:not(#' + this.id + ')')
-      		                    .style("opacity", 0.2);
+                            var selectNotThis = $('.line').not(this);
+                            //
+                            d3.selectAll('g:not(#'+ this.id +')')
+                              .selectAll('.line')
+      		                    .style('opacity', .2);
+
+                            d3.select(this)
+                              .style('stroke-width', '3px');
                         	})
                         	.on('mouseout',	function(d) {        //undo everything on the mouseout
                           		d3.select(this)
                             		.style('stroke-width','1px');
 
                               d3.selectAll('.line')
-        		                    .style("opacity", 1);
+        		                    .style('opacity', 1);
                     	    });
 
                   vis.append('path')

@@ -15,7 +15,12 @@ angular
             [
             {label: "Allston", sales: 12340},
             {label: "Back Bay", sales: 123150 },
-            {label: "Charlestown", sales: 250655}
+            {label: "Charlestown", sales: 250655},
+            {label: "Downtown", sales: 455006},
+            {label: "Jamaica Plain", sales: 506000},
+            {label: "North End", sales: 65000},
+            {label: "South End", sales: 560433},
+            {label: "West End", sales: 45000},
           ]
 
           var width = 400;

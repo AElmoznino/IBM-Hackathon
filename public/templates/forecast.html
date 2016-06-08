@@ -2,18 +2,29 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1 white mt">
         <h1>Forecasts &amp; Analytics</h1>
-        <h4>Weekly real-time weather summary: {{forecast.daily.summary}}</h4>
+        <h4 id="forecast-summary">Weekly real-time weather summary: {{forecast.daily.summary}}</h4>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 mt">
+      <!-- Alert div that shows only if there is a governmental weather alert, i.e. storms etc -->
+        <div ng-if="forecast.alert" class="red-bg">
+          <h4>Attention, severe weather alert: {{forecast.alert.title}}</h4>
+          <p>{{forecast.alert.description}}</p>
+          <p>More info at: {{forecast.alert.uri}}</p>
+        </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-5 col-md-offset-1 graph-card mt" min-height="500px">
       <h2 class="mt">Boston 7 Days Weather Forecast</h2>
       <forecast-directive class="line"></forecast-directive>
       <p><em>Live data fetched <strong>{{getDatetime | date:'medium'}}</strong> from <a href="https://www.forecast.io">Forecast.io</a></em></p>
     </div>
-
     <div class="col-md-4 col-md-offset-1 graph-card mt">
-      <h2 class="mb">Weather alerts</h2>
+      <h2 class="mb">Weekly Weather Notifications</h2>
       <p>Get a clear overview of weather factors that affect sales, such as high temperatures, humidity, heavy precipitation or chances thereof.</p>
       <div ng-repeat="day in forecast.daily.data">
         <strong>{{day.time | date:'EEEE, MMMM d'}}: </strong>
@@ -25,28 +36,18 @@
       </div> <!-- End of ng-repeat -->
       <p class="mt mb"><em>The filters are set to alert for temperatures above 25°C, humidity over 75%, over 0.3 inches/hour of precipitation and over 50% chance of precipitation.</em></p> 
     </div>
-
   </div>
 
   <div class="row">
-
-    
-
     <div class="col-md-5 col-md-offset-1 graph-card mt mb">
-      <h3 class="mb">Set up alerts</h3>
-      <p>Enter your phone number to get daily SMS weather alerts</p>
-      <input type="number" class="mb" disabled placeholder="+972-123456789"><br />
-      <button type="button" class="btn btn-default active mb" disabled>Get SMS alerts</button>
-    </div>
-    <div class="col-md-4 col-md-offset-1 graph-card mt mb">
-      <h3 class="mb">Past Sales Data</h3> 
-      <p class="mb">See past sales data</p>
-      <a type="button" class="btn btn-default active mb btn-hov" ui-sref="sales">View Sales</a>
-    </div>
+        <h3 class="mb">Set Up SMS Alerts</h3>
+        <p>Enter your phone number to get daily SMS weather alerts</p>
+        <input type="number" class="mb" disabled placeholder="+972-123456789"><br />
+        <button type="button" class="btn btn-default active mb" disabled>Sign Up</button>
+      </div>
+      <div class="col-md-4 col-md-offset-1 graph-card mt mb">
+        <h3 class="mb">Past Sales Data</h3> 
+        <p class="mb">Analyze historic sales data</p>
+        <a type="button" class="btn btn-default active mb btn-hov" ui-sref="sales">View Sales</a>
+      </div>
   </div>
-
-  <div class="row">
-    <div class="col-md-12">
-    </div>
-  </div>
-</div>

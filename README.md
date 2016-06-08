@@ -1,14 +1,27 @@
-# IBM Hackathon: "FanCo"
+# IBM Hackathon Project: "FanCo"
+
 ### Background
-"FanCo" hackathon project for IBM using AngularJS and D3.js
-More info coming soon
+Hackathon project for IBM using the MEAN stack and D3.js.
 
-### Project Description / Requirements
-Coming soon
+### Project Description and Requirements
+The assignment was to create a sales dashboard for a fictive fan producer. 
+The sales team needed to see sales over time in total, per product, sub-geography and sales channel; combined with weather data.
+Besides that, there's a view where the sales team can get real-time weather notifications, along with signing up for daily SMS alerts.
 
-### Who's behind it
-Coming soon
+### Tech Stack
+This project is built using the MEAN stack: MongoDB, ExpressJS, AngularJS and NodeJS.
+For data visualization we've used [D3.js](https://www.d3js.org/).
+For the automatic daily SMS alerts we've used Twilio, Forecast and Cron.
 
-### Tech stack
-Coming soon
+### Live Deployment
+The final project is deployed and can be used at [fanco.herokuapp.com](https://fanco.herokuapp.com).
+
+### Who's Behind It
++ **Leonid Spivak** - [Leonid's GitHub Profile](https://github.com/golani04) - [Leonid's LinkedIn Profile](https://il.linkedin.com/in/leonid-spivak-53a35219)
++ **Rony Rosenberg** - [Rony's GitHub Profile](https://github.com/ronywan) - [Rony's LinkedIn Profile](https://il.linkedin.com/in/ronyrosenberg)
++ **André Elmoznino Laufer** - [André's GitHub Profile'](https://github.com/aelmoznino) - [André's LinkedIn Profile](https://il.linkedin.com/in/andreelmoznino)
+
+
+
+
 

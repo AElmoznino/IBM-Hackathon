@@ -2,41 +2,46 @@
   <div class="row">
     <div class="col-md-10 col-md-offset-1 white mt">
         <h1>Forecasts &amp; Analytics</h1>
-        <p>This week's weather summary in real-time: {{forecast.daily.summary}}</p>
+        <h4>Weekly real-time weather summary: {{forecast.daily.summary}}</h4>
     </div>
   </div>
   <div class="row">
-    <div class="col-md-10 col-md-offset-1 graph-card mt" min-height="500px">
+    <div class="col-md-5 col-md-offset-1 graph-card mt" min-height="500px">
       <h2 class="mt">Boston 7 Days Weather Forecast</h2>
       <forecast-directive class="line"></forecast-directive>
-      <p><em>Live data fetched {{getDatetime | date:'medium'}} from <a href="https://www.forecast.io">Forecast.io</a></em></p>
+      <p><em>Live data fetched <strong>{{getDatetime | date:'medium'}}</strong> from <a href="https://www.forecast.io">Forecast.io</a></em></p>
     </div>
-  </div>
 
-  <div class="row">
     <div class="col-md-4 col-md-offset-1 graph-card mt">
-      <h3 class="mb">Weather alerts</h3>
+      <h2 class="mb">Weather alerts</h2>
       <p>Get a clear overview of weather factors that affect sales, such as high temperatures, humidity, heavy precipitation or chances thereof.</p>
       <div ng-repeat="day in forecast.daily.data">
         <strong>{{day.time | date:'EEEE, MMMM d'}}: </strong>
-        <span ng-if="day.temperatureMax >= 25"> {{day.temperatureMax}}&#176;C -</span>
-        <span ng-if="day.humidity >= 0.75"> {{day.humidity * 100}}&#37; humiditiy -</span>
-        <span ng-if="day.precipIntensity >= 0.3"> {{day.precipIntensity | number:2 }}&#34;/hour precipitation -</span>
-        <span ng-if="day.precipProbability >= 0.5"> {{day.precipProbability * 100}}&#37; chance of precipitation -</span>
+        <span ng-if="day.temperatureMax >= 25"> {{day.temperatureMax | number:0}}&#176;C.</span>
+        <span ng-if="day.humidity >= 0.75"> {{day.humidity * 100 | number:0 }}&#37; humiditiy.</span>
+        <span ng-if="day.precipIntensity >= 0.3"> {{day.precipIntensity | number:2 }} inches/hour precipitation.</span>
+        <span ng-if="day.precipProbability >= 0.5"> {{day.precipProbability * 100 | number:0}}&#37; chance of precipitation.</span>
+        <span ng-if="day.precipProbability < 0.5 && day.precipIntensity < 0.3 && day.humidity < 0.75 && day.temperatureMax < 25">No alerts to show.</span>
       </div> <!-- End of ng-repeat -->
       <p class="mt mb"><em>The filters are set to alert for temperatures above 25°C, humidity over 75%, over 0.3 inches/hour of precipitation and over 50% chance of precipitation.</em></p> 
     </div>
-    <div class="col-md-2 col-md-offset-1 graph-card mt">
+
+  </div>
+
+  <div class="row">
+
+    
+
+    <div class="col-md-5 col-md-offset-1 graph-card mt mb">
       <h3 class="mb">Set up alerts</h3>
       <p>Enter your phone number to get daily SMS weather alerts</p>
-      <small>(Coming soon)</small>
-      <input type="number" class="mb disabled="" ">
-      <button type="button" class="btn btn-default active mb">Get SMS alerts</button>
+      <input type="number" class="mb" disabled placeholder="+972-123456789"><br />
+      <button type="button" class="btn btn-default active mb" disabled>Get SMS alerts</button>
     </div>
-    <div class="col-md-2 col-md-offset-1 graph-card mt">
+    <div class="col-md-4 col-md-offset-1 graph-card mt mb">
       <h3 class="mb">Past Sales Data</h3> 
       <p class="mb">See past sales data</p>
-      <button type="button" class="btn btn-default active mb">View Sales</button>
+      <a type="button" class="btn btn-default active mb btn-hov" ui-sref="sales">View Sales</a>
     </div>
   </div>
 

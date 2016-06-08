@@ -1,6 +1,7 @@
 "use strict";
 const express = require('express'),
       mongoose = require('mongoose'),
+      fs = require('fs'),
       favicon = require('serve-favicon'),
       path = require('path'),
       bodyParser = require('body-parser'),
@@ -24,18 +25,18 @@ let Price = require('./models/pricingModel');
 
 app.get('/getSales', (req, res, next) => {
   Sale.find((err, sales) => {
-    console.log(sales.length);
     if (err) {
       return next(err);
     } else if (sales.length === 0) {
-      //checking if collection exists
+      // checking if collection exists
       let sale = new Sale();
-      sale.convertToJson('data/fanco-sales.csv')
+      sale.convertToJson('./data/fanco-sales.csv')
         // handle the successful data conversion
         // receiving data from file and handling it
         .then((data) => {
           Sale.collection.insertMany(data);
-          console.log(Sale.collection);
+      }, function (err) {
+        console.log(err);
       });
     } else {
       res.send(sales);

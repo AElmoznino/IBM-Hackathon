@@ -2,7 +2,7 @@
 const fs = require('fs'),
       mongoose = require('mongoose'),
       Converter = require('csvtojson').Converter,
-      converter = new Converter({ignoreEmpty: true});
+      converter = new Converter();
 
 let SaleSchema = new mongoose.Schema({
   'Week Of': String,
@@ -15,15 +15,33 @@ let SaleSchema = new mongoose.Schema({
 });
 
 SaleSchema.methods.convertToJson = (file) => {
+  // promise to handle data from file
+  var data = [];
+  // handling res / rej;
   return new Promise( (resolve, reject) => {
-    converter.on("end_parsed", (jsonData) => {
+    // after finished with looping and stored data inside the new var
+    // calling successful Promise in order send a data
+    converter.on("end_parsed", function(jsonData) {
       if(!jsonData) {
         reject("CSV to JSON conversion failed!")
       }
-      resolve(jsonData);
+      
+      console.log("Finished parsing");
+      resolve(data);
+    });
+    // Using cthe converters' property ignoreEmpty fails to read data from specific line,
+    // in order overcome it, converted file with empty lines
+    // and run the event "record_parsed" to loop over data and remove empty objects using one of properties
+    // https://github.com/Keyang/node-csvtojson
+    converter.on("record_parsed", (obj) => {
+      if (obj['Week Of'] !== '') {
+        data.push(obj)
+      }
     });
     fs.createReadStream(file).pipe(converter);
   });
+  // using fs to read a file and process using converter
+  // fs.createReadStream(file).pipe(converter).pipe(fs.createWriteStream("data/outputData1.json"));
 };
 
 let Sale = mongoose.model('Sale', SaleSchema);

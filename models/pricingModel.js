@@ -2,7 +2,9 @@
 const fs = require('fs'),
       mongoose = require('mongoose'),
       Converter = require('csvtojson').Converter,
-      converter = new Converter({ignoreEmpty: true});
+      converter = new Converter({
+        ignoreEmpty: true
+      });
 
 // creating schema for price file
 let PriceSchema = new mongoose.Schema({
@@ -15,7 +17,7 @@ let PriceSchema = new mongoose.Schema({
 // func to covert file from csv to json
 PriceSchema.methods.convertToJson = (file) => {
   // promise to handle data from file
-  return new Promise( (resolve, reject) => {
+  // return new Promise( (resolve, reject) => {
     converter.on("end_parsed", (jsonData) => {
       // handling res / rej
       if(!jsonData) {
@@ -25,7 +27,7 @@ PriceSchema.methods.convertToJson = (file) => {
     });
     // using fs to read a file and process using converter
     fs.createReadStream(file).pipe(converter);
-  });
+  // });
 };
 
 let Price = mongoose.model('Price', PriceSchema);

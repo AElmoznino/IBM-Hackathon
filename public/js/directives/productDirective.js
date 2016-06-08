@@ -12,21 +12,15 @@ angular
               updateLine(data, weather);
               var datos = data;
 
-              d3.select('select')
-                .on('change', function(d,i) {
-
-                  var sel = d3.select('#product-option').node().value;
-                  // console.log(sel);
-                  if (sel === 'total') {
-                   
-                    productLine(data, weather);
-                    d3.select("svg").remove();
-
-                  } else if (sel === 'products'){
-                    d3.select("svg").remove();
-                    updateLine(data, weather);
-                  }
-                })
+                $('#total').click(function(){
+                     updateLine(data, weather);
+                     d3.select("svg").remove();
+                  });
+                $('#product').click(function(){
+                     d3.select("svg").remove();
+                     productLine(data, weather);
+                });
+              
               })
 
             });

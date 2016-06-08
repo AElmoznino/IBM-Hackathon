@@ -77,7 +77,6 @@ p, a {
   min-height: 1200px;
     -webkit-filter: grayscale(1);
   filter: grayscale(1);
-
 }
 
 .weather-div {
@@ -278,11 +277,6 @@ rect {
   line-height: 20px;
 }
 
-/* Chart styling */
-/*svg {
-  padding-left: 20px;
-}*/
-
 .axis text {
     font-family: 'Roboto Slab', sans-serif;
 }
@@ -362,6 +356,7 @@ div.tooltip {
   position: relative;
   width: 360px;
 }
+
 /*for pie chart*/
 .tooltip2 {
   background: #eee;
@@ -406,8 +401,16 @@ div.tooltip {
    stroke-width: 2;
  }
 
+/* RESPONSIVENESS MEDIA QUERIES */ 
+
  @media (min-width:1026px){
    .mr {
     margin-right: 65px;
    }
+}
+
+@media screen and (max-width: 768px) {
+    .sales-div, .weather-div {
+      min-height: 800px;
+    }
 }

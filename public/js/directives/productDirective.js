@@ -23,8 +23,8 @@ angular
                     d3.select("svg").remove();
 
                   } else if (sel === 'products'){
-                    updateLine(data);
                     d3.select("svg").remove();
+                    updateLine(data, weather);
                   }
                 })
               })
@@ -253,7 +253,7 @@ angular
 
                       var y1Scale = d3.scale
                                     .linear()
-                                    .domain([0, 50]) //hardcoded, needs to be adjusted to be dynamic
+                                    .domain([-20, 30]) //hardcoded, needs to be adjusted to be dynamic
                                     .range([h - margins.top, margins.bottom]);
 
                       var xAxisGen = d3.svg
@@ -346,7 +346,7 @@ angular
                                               .x(function(d) { 
                                                 // console.log(d3.values(weather))
                                                 // console.log(getDate(d.date))
-                                                return (xScale(getDate(d.date)));
+                                                return (xScale(getDate(d.date)))-margins.left*1.5;
                                                  })
                                               .y(function(d) { 
                                                 // console.log("average: ", d.average)

@@ -321,7 +321,7 @@ angular
                           //              .range(d3.range(1, d.value.length+1));
 
 
-                     d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/public/js/directives/weather.csv", function(error, weather){
+                     d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
                        if (error) {
                          console.log(error)
                        } else {

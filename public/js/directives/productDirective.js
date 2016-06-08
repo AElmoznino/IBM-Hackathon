@@ -7,7 +7,9 @@ angular
             var fetchData = sales.getJoinSalesAndPrices();
 
             fetchData.then(function (data) {
-              updateLine(data);
+              d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
+               console.log(weather)
+              updateLine(data, weather);
               var datos = data;
 
               d3.select('select')
@@ -16,7 +18,8 @@ angular
                   var sel = d3.select('#product-option').node().value;
                   console.log(sel);
                   if (sel === 'total') {
-                    productLine(data);
+                   
+                    productLine(data, weather);
                     d3.select("svg").remove();
 
                   } else if (sel === 'products'){
@@ -24,7 +27,7 @@ angular
                     d3.select("svg").remove();
                   }
                 })
-
+              })
 
             });
 
@@ -36,7 +39,17 @@ angular
                 bottom: 20,
                 left: 50
             }
-
+            function getDate(d){
+                
+                //20130101
+                var strDate = new String(d);
+                // console.log("20150602")
+                var year = strDate.substr(0,4);
+                var month = strDate.substr(4,2); //zero based index
+                var day = strDate.substr(6,2);
+                
+                return new Date(year, month, day);
+            }
 
 
             var productLine = function (result) {
@@ -187,8 +200,14 @@ angular
 
             };//end productline
             //updates the line removing the previus chart and showing the products view
-            var updateLine = function(result){
-              console.log('updating')
+            var updateLine = function(result, weather){
+                    console.log('updating')
+                    console.log(weather)
+
+                 
+
+
+              //total sales
                       var data = d3func.getSumByProduct(result);
                       var revenueData = d3func.getSumByDate(result)
 
@@ -320,14 +339,21 @@ angular
                           //              .domain([0, 1])
                           //              .range(d3.range(1, d.value.length+1));
 
+                
+                weather
+                      var valueLineWeather = d3.svg.line()
+                                              .x(function(d) { return getDate(d.date); })
+                                              .y(function(d) { return d.average; });
+                     
+                      var viz2 = chart.append('path')
+                                             .attr({
+                                                 d: valueLineWeather(weather),
+                                                 'stroke': 'purple',
+                                                 'stroke-width': 2,
+                                                 'fill':'none'
+                                             });              
 
-                     d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
-                       if (error) {
-                         console.log(error)
-                       } else {
-                         }
-                       console.log(weather);
-                     })
+                    
                          
             } //end upadte line
 

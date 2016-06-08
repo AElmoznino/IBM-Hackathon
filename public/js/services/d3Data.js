@@ -17,8 +17,8 @@ angular
             // val.sum.push(v.cost * v.sales)
             val.sum += (v.cost * v.sales)
           }
-        })
-      })
+        });
+      });
 
       return sumObj;
     }
@@ -40,20 +40,24 @@ angular
     }
 
     var getSumByNeighborhood = function (data) {
-      console.log(data);
+      // console.log(data);
       var neighObj = {};
       angular.forEach(data, function (val, key) {
-        neighObj[val['neighborhood']] = [];
-      });
-
-      angular.forEach(data, function (val, key) {
-        neighObj[val['neighborhood']].push({
+        neighObj[val['neighborhood']] = {
           label: val.neighborhood,
-          sales: val['cost'] * val['sales']
-        });
+          sum: val['cost'] * val['sales']
+        };
       });
 
-      console.log(neighObj);
+      angular.forEach(neighObj, function (val, key) {
+        angular.forEach(data, function (v, k) {
+          if (key === v.neighborhood) {
+            val.sum += (v.cost * v.sales)
+          }
+        })
+      });
+
+      // console.log(neighObj);
       return neighObj;
     }
 

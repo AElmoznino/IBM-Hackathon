@@ -29,11 +29,6 @@ angular
             var color = d3.scale.category20c();
             var donutWidth = 75;
 
-            // Alternative
-            // var color = d3.scale.ordinal()
-              // .range(['#A60F2B', '#648C85', '#B3F2C9', '#528C18', '#C3F25C']);
-
-
             var pieChart = function (result) {
 
               var svg = d3.select('#chart')
@@ -50,23 +45,20 @@ angular
                 .outerRadius(radius);
 
               // For the start and end angles of the segments, we use D3's layout.pie():
-
               var pie = d3.layout.pie()
-                .value(function(d) { return d.sales; })
+                .value(function(d) { return d.sum; })
                 .sort(null);
 
-              // For it we need to define how to extract the numerical data from each entry in our dataset;
+              // For it we need to define how to extract the numerical data from each entry in our result;
               // this is where the count property of the objects we defined earlier comes into play.
               // If we had just had an array of numbers, then instead of returning d.count we could just have returned d.
               // We specify sort(null) to disable sorting of the entries, because a)
               // we have them in the order we want and b) later on sorting will mess with our animation.
               // By default it will sort in order of descending value.
-              dataset.forEach(function(d) {
-                          d.sales = +d.sales;
-                        });
+
 
               var path = svg.selectAll('path')
-                .data(pie(dataset))
+                .data(pie(d3.values(result)))
                 .enter()
                 .append('path')
                 .attr('d', arc)
@@ -117,16 +109,17 @@ angular
                 .attr('class', 'percent');
 
               path.on('mouseover', function(d) {
-                var total = d3.sum(dataset.map(function(d) {
-                  return d.sales;
+                var total = d3.sum(d3.values(result).map(function(d) {
+                  return d.sum;
                 }));
 
-                var percent = Math.round(1000 * d.data.sales / total) / 10;
+                var percent = Math.round(1000 * d.data.sum / total) / 10;
                 tooltip.select('.label').html(d.data.label);
-                tooltip.select('.count').html(d.data.sales);
+                tooltip.select('.count').html(d3.round(d.data.sum, 2));
                 tooltip.select('.percent').html(percent + '%');
                 tooltip.style('display', 'block');
               });
+
               // to move it with mouse
               // path.on('mousemove', function(d) {
               //   tooltip.style('top', (d3.event.layerY + 10) + 'px')

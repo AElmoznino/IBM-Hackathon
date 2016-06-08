@@ -38,6 +38,12 @@ p, a {
     text-decoration: none;
 }
 
+.nav > li > a:hover {
+    color: #87BDC8 !important;
+    font-size: 16px;
+    text-decoration: none;
+}
+
 .transparent {
   background-color: transparent !important;
   border: 0px !important;
@@ -318,6 +324,10 @@ a:hover, a:visited, a:focus, a:active {
   border: none;
 }
 
+.btn-hov:hover {
+  background-color: #87BDC8 !important;
+}
+
 button.btn.btn-default.disabled {
     background-color: #87BDC8;
 }
@@ -391,3 +401,9 @@ div.tooltip {
  rect {
    stroke-width: 2;
  }
+
+ @media (min-width:1026px){
+   .mr {
+    margin-right: 65px;
+   }
+}

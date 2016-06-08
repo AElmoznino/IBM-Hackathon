@@ -7,24 +7,27 @@ angular
             var fetchData = sales.getJoinSalesAndPrices();
 
             fetchData.then(function (data) {
-              updateLine(data);
+              d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
+               // console.log(weather)
+              updateLine(data, weather);
               var datos = data;
 
               d3.select('select')
                 .on('change', function(d,i) {
 
                   var sel = d3.select('#product-option').node().value;
-                  console.log(sel);
+                  // console.log(sel);
                   if (sel === 'total') {
-                    productLine(data);
+                   
+                    productLine(data, weather);
                     d3.select("svg").remove();
 
                   } else if (sel === 'products'){
-                    updateLine(data);
                     d3.select("svg").remove();
+                    updateLine(data, weather);
                   }
                 })
-
+              })
 
             });
 
@@ -36,7 +39,17 @@ angular
                 bottom: 20,
                 left: 50
             }
-
+            function getDate(d){
+                
+                //20130101
+                var strDate = new String(d);
+                // console.log("20150602")
+                var year = strDate.substr(0,4);
+                var month = strDate.substr(4,2); //zero based index
+                var day = strDate.substr(6,2);
+                
+                return new Date(year, month, day);
+            }
 
 
             var productLine = function (result) {
@@ -187,8 +200,14 @@ angular
 
             };//end productline
             //updates the line removing the previus chart and showing the products view
-            var updateLine = function(result){
-              console.log('updating')
+            var updateLine = function(result, weather){
+                    console.log('updating')
+                    console.log(weather)
+
+                 
+
+
+              //total sales
                       var data = d3func.getSumByProduct(result);
                       var revenueData = d3func.getSumByDate(result)
 
@@ -220,7 +239,7 @@ angular
                                 width: w,
                                 height: h,
                                 margin: 20,
-                      });
+                              })
 
                       var xScale = d3.time
                                    .scale()
@@ -229,12 +248,12 @@ angular
 
                       var y0Scale = d3.scale
                                     .linear()
-                                    .domain([0, 72000]) //hardcoded, needs to be adjusted to be dynamic
+                                    .domain([0, 280000]) //hardcoded, needs to be adjusted to be dynamic
                                     .range([h - margins.top, margins.bottom]);
 
                       var y1Scale = d3.scale
                                     .linear()
-                                    .domain([0, 50]) //hardcoded, needs to be adjusted to be dynamic
+                                    .domain([-20, 30]) //hardcoded, needs to be adjusted to be dynamic
                                     .range([h - margins.top, margins.bottom]);
 
                       var xAxisGen = d3.svg
@@ -295,6 +314,7 @@ angular
 
                        var lineGen = d3.svg.line()
                                     .x(function(d) {
+                                      // console.log(new Date(d.date))
                                       return xScale(new Date (d.date));
                                     })
                                     .y(function(d) {
@@ -310,7 +330,7 @@ angular
                               return new Date(a.date) - new Date(b.date)
                             })),
                             'stroke': 'blue',
-                            'stroke-width': 1,
+                            'stroke-width': 2,
                             'fill': 'none'
                           })
                           .transition()
@@ -320,14 +340,28 @@ angular
                           //              .domain([0, 1])
                           //              .range(d3.range(1, d.value.length+1));
 
+                
+                // weather
+                      var valueLineWeather = d3.svg.line()
+                                              .x(function(d) { 
+                                                // console.log(d3.values(weather))
+                                                // console.log(getDate(d.date))
+                                                return (xScale(getDate(d.date)))-margins.left*1.5;
+                                                 })
+                                              .y(function(d) { 
+                                                // console.log("average: ", d.average)
+                                                return y1Scale(d.average); 
+                                              });
+                     
+                                   chart.append('path')
+                                             .attr({
+                                                 d: valueLineWeather(weather),
+                                                 'stroke': 'purple',
+                                                 'stroke-width': 2,
+                                                 'fill':'none'
+                                             });              
 
-                     d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
-                       if (error) {
-                         console.log(error)
-                       } else {
-                         }
-                       console.log(weather);
-                     })
+                    
                          
             } //end upadte line
 

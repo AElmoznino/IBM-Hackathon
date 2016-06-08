@@ -8,7 +8,6 @@ angular
 
             fetchData.then(function (data) {
               d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
-               // console.log(weather)
               updateLine(data, weather);
               var datos = data;
 
@@ -37,7 +36,6 @@ angular
                 
                 //20130101
                 var strDate = new String(d);
-                // console.log("20150602")
                 var year = strDate.substr(0,4);
                 var month = strDate.substr(4,2); //zero based index
                 var day = strDate.substr(6,2);
@@ -308,7 +306,6 @@ angular
 
                        var lineGen = d3.svg.line()
                                     .x(function(d) {
-                                      // console.log(new Date(d.date))
                                       return xScale(new Date (d.date));
                                     })
                                     .y(function(d) {
@@ -327,23 +324,14 @@ angular
                             'stroke-width': 2,
                             'fill': 'none'
                           })
-                          .transition()
-                          .duration(4000)
-                          // .attrTween('d', function (d) {
-                          //          var interpolate = d3.scale.quantile()
-                          //              .domain([0, 1])
-                          //              .range(d3.range(1, d.value.length+1));
-
+                          
                 
                 // weather
                       var valueLineWeather = d3.svg.line()
                                               .x(function(d) { 
-                                                // console.log(d3.values(weather))
-                                                // console.log(getDate(d.date))
                                                 return (xScale(getDate(d.date)))-margins.left*1.45; 
                                                  })
                                               .y(function(d) { 
-                                                // console.log("average: ", d.average)
                                                 return y1Scale(d.average); 
                                               });
                      
@@ -355,8 +343,6 @@ angular
                                                  'fill':'none'
                                              });              
 
-                    
-                         
             } //end upadte line
 
           });

@@ -23,25 +23,44 @@ angular
       return sumObj;
     }
 
-   var getSumByProduct = function (data) {
-        var prodObj = {};
-        angular.forEach(data, function (val, key) {
-          prodObj[val['product']] = [];
-        });
+    var getSumByProduct = function (data) {
+      var prodObj = {};
+      angular.forEach(data, function (val, key) {
+        prodObj[val['product']] = [];
+      });
 
-        angular.forEach(data, function (val, key) {
-          prodObj[val['product']].push({
-            date: val.date,
-            sum: val['cost'] * val['sales']
-          });
+      angular.forEach(data, function (val, key) {
+        prodObj[val['product']].push({
+          date: val.date,
+          sum: val['cost'] * val['sales']
         });
+      });
 
-        return prodObj;
-      }
+      return prodObj;
+    }
+
+    var getSumByNeighborhood = function (data) {
+      console.log(data);
+      var neighObj = {};
+      angular.forEach(data, function (val, key) {
+        neighObj[val['neighborhood']] = [];
+      });
+
+      angular.forEach(data, function (val, key) {
+        neighObj[val['neighborhood']].push({
+          label: val.neighborhood,
+          sales: val['cost'] * val['sales']
+        });
+      });
+
+      console.log(neighObj);
+      return neighObj;
+    }
 
     return {
       getSumByDate: getSumByDate,
-      getSumByProduct: getSumByProduct
+      getSumByProduct: getSumByProduct,
+      getSumByNeighborhood: getSumByNeighborhood
     }
 
   }])

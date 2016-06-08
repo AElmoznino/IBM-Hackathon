@@ -182,11 +182,22 @@ angular
                     		});
 
             };//end productline
-
+            //updates the line removing the previus chart and showing the products view
             var updateLine = function(result){
               console.log('updating')
                       var data = d3func.getSumByProduct(result);
                       var revenueData = d3func.getSumByDate(result)
+
+                      d3.csv("../directives/weather.csv", function(error, data){
+                        if (error) {
+                          console.log(error)
+                        } else {
+                          console.log(data)
+                        }
+                      })
+
+                          // .row(function(d) { return {key: d.key, value: +d.value}; })
+                          // .get(function(error, rows) { console.log(rows); });
 
                       // min-max of the date
                       var minMax = function(max) {
@@ -286,7 +297,14 @@ angular
                             'stroke': 'blue',
                             'stroke-width': 1,
                             'fill': 'none'
-                          });
+                          })
+                          .transition()
+                          .duration(4000)
+                          // .attrTween('d', function (d) {
+                          //          var interpolate = d3.scale.quantile()
+                          //              .domain([0, 1])
+                          //              .range(d3.range(1, d.value.length+1));
+
 
                          
             } //end upadte line

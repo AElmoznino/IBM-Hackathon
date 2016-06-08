@@ -31,7 +31,7 @@ angular
                 top: 20,
                 right: 20,
                 bottom: 20,
-                left: 50
+                left: 55 
             }
             function getDate(d){
                 
@@ -323,7 +323,7 @@ angular
                             'd': lineGen(d3.values(revenueData).sort(function (a, b) {
                               return new Date(a.date) - new Date(b.date)
                             })),
-                            'stroke': 'blue',
+                            'stroke': '#0077C2', 
                             'stroke-width': 2,
                             'fill': 'none'
                           })
@@ -340,7 +340,7 @@ angular
                                               .x(function(d) { 
                                                 // console.log(d3.values(weather))
                                                 // console.log(getDate(d.date))
-                                                return (xScale(getDate(d.date)))-margins.left*1.5;
+                                                return (xScale(getDate(d.date)))-margins.left*1.45; 
                                                  })
                                               .y(function(d) { 
                                                 // console.log("average: ", d.average)
@@ -350,7 +350,7 @@ angular
                                    chart.append('path')
                                              .attr({
                                                  d: valueLineWeather(weather),
-                                                 'stroke': 'purple',
+                                                 'stroke': '#87BDC8', 
                                                  'stroke-width': 2,
                                                  'fill':'none'
                                              });              

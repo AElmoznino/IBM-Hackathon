@@ -298,6 +298,10 @@ rect {
   background-color: #EEF2F6;
 }
 
+.red-bg {
+  background-color: #FF5E69;
+}
+
 /* ANGULAR */
 .ng-scope { margin:0; }
 

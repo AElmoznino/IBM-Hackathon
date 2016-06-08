@@ -5,6 +5,18 @@
         <h4>Weekly real-time weather summary: {{forecast.daily.summary}}</h4>
     </div>
   </div>
+
+  <div class="row">
+    <div class="col-md-10 col-md-offset-1 mt">
+      <!-- Alert div that shows only if there is a governmental weather alert, i.e. storms etc -->
+        <div ng-if="forecast.alert" class="red-bg">
+          <h4>Attention, severe weather alert: {{forecast.alert.title}}</h4>
+          <p>{{forecast.alert.description}}</p>
+          <p>More info at: {{forecast.alert.uri}}</p>
+        </div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-5 col-md-offset-1 graph-card mt" min-height="500px">
       <h2 class="mt">Boston 7 Days Weather Forecast</h2>

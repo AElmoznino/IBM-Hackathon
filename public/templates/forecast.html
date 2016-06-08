@@ -21,6 +21,7 @@
         <span ng-if="day.humidity >= 0.75"> {{day.humidity * 100 | number:0 }}&#37; humiditiy.</span>
         <span ng-if="day.precipIntensity >= 0.3"> {{day.precipIntensity | number:2 }} inches/hour precipitation.</span>
         <span ng-if="day.precipProbability >= 0.5"> {{day.precipProbability * 100 | number:0}}&#37; chance of precipitation.</span>
+        <span ng-if="day.precipProbability < 0.5 && day.precipIntensity < 0.3 && day.humidity < 0.75 && day.temperatureMax < 25">No alerts to show.</span>
       </div> <!-- End of ng-repeat -->
       <p class="mt mb"><em>The filters are set to alert for temperatures above 25°C, humidity over 75%, over 0.3 inches/hour of precipitation and over 50% chance of precipitation.</em></p> 
     </div>

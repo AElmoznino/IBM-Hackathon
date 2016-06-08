@@ -8,7 +8,7 @@ angular
 
             fetchData.then(function (data) {
               d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/data/weatherhistory.csv", function(error, weather){
-               console.log(weather)
+               // console.log(weather)
               updateLine(data, weather);
               var datos = data;
 
@@ -16,7 +16,7 @@ angular
                 .on('change', function(d,i) {
 
                   var sel = d3.select('#product-option').node().value;
-                  console.log(sel);
+                  // console.log(sel);
                   if (sel === 'total') {
                    
                     productLine(data, weather);
@@ -239,7 +239,7 @@ angular
                                 width: w,
                                 height: h,
                                 margin: 20,
-                      });
+                              })
 
                       var xScale = d3.time
                                    .scale()
@@ -248,7 +248,7 @@ angular
 
                       var y0Scale = d3.scale
                                     .linear()
-                                    .domain([0, 72000]) //hardcoded, needs to be adjusted to be dynamic
+                                    .domain([0, 280000]) //hardcoded, needs to be adjusted to be dynamic
                                     .range([h - margins.top, margins.bottom]);
 
                       var y1Scale = d3.scale
@@ -314,6 +314,7 @@ angular
 
                        var lineGen = d3.svg.line()
                                     .x(function(d) {
+                                      // console.log(new Date(d.date))
                                       return xScale(new Date (d.date));
                                     })
                                     .y(function(d) {
@@ -329,7 +330,7 @@ angular
                               return new Date(a.date) - new Date(b.date)
                             })),
                             'stroke': 'blue',
-                            'stroke-width': 1,
+                            'stroke-width': 2,
                             'fill': 'none'
                           })
                           .transition()
@@ -340,12 +341,19 @@ angular
                           //              .range(d3.range(1, d.value.length+1));
 
                 
-                weather
+                // weather
                       var valueLineWeather = d3.svg.line()
-                                              .x(function(d) { return getDate(d.date); })
-                                              .y(function(d) { return d.average; });
+                                              .x(function(d) { 
+                                                // console.log(d3.values(weather))
+                                                // console.log(getDate(d.date))
+                                                return (xScale(getDate(d.date)));
+                                                 })
+                                              .y(function(d) { 
+                                                // console.log("average: ", d.average)
+                                                return y1Scale(d.average); 
+                                              });
                      
-                      var viz2 = chart.append('path')
+                                   chart.append('path')
                                              .attr({
                                                  d: valueLineWeather(weather),
                                                  'stroke': 'purple',

@@ -24,6 +24,8 @@ angular
                     d3.select("svg").remove();
                   }
                 })
+
+
             });
 
             var h = 500;
@@ -92,6 +94,8 @@ angular
                            .ticks(10)
                            .tickSize(0)
                            .orient('left');
+
+
 
                chart.attr({
                  'width': w + margins.left + margins.right,
@@ -188,16 +192,7 @@ angular
                       var data = d3func.getSumByProduct(result);
                       var revenueData = d3func.getSumByDate(result)
 
-                      d3.csv("../directives/weather.csv", function(error, data){
-                        if (error) {
-                          console.log(error)
-                        } else {
-                          console.log(data)
-                        }
-                      })
 
-                          // .row(function(d) { return {key: d.key, value: +d.value}; })
-                          // .get(function(error, rows) { console.log(rows); });
 
                       // min-max of the date
                       var minMax = function(max) {
@@ -232,9 +227,14 @@ angular
                                    .domain([minMax(false), minMax(true)])
                                    .range([margins.left, w - margins.right]);
 
-                      var yScale = d3.scale
+                      var y0Scale = d3.scale
                                     .linear()
                                     .domain([0, 72000]) //hardcoded, needs to be adjusted to be dynamic
+                                    .range([h - margins.top, margins.bottom]);
+
+                      var y1Scale = d3.scale
+                                    .linear()
+                                    .domain([0, 50]) //hardcoded, needs to be adjusted to be dynamic
                                     .range([h - margins.top, margins.bottom]);
 
                       var xAxisGen = d3.svg
@@ -244,12 +244,19 @@ angular
                                     .tickSize(0)
                                     .tickFormat(d3.time.format('%b %y'));
 
-                       var yAxisGen = d3.svg
+                       var y0AxisGen = d3.svg
                                    .axis()
-                                   .scale(yScale)
+                                   .scale(y0Scale)
                                    .ticks(10)
                                    .tickSize(0)
                                    .orient('left');
+
+                       var y1AxisGen = d3.svg
+                                   .axis()
+                                   .scale(y1Scale)
+                                   .ticks(10)
+                                   .tickSize(0)
+                                   .orient('right');
 
                        chart.attr({
                          'width': w + margins.left + margins.right,
@@ -264,11 +271,19 @@ angular
                                     'shape-rendering': 'crispEdges'
                                   });
 
-                       var yAxis = chart.append('g')
-                                  .call(yAxisGen)
+                       var y0Axis = chart.append('g')
+                                  .call(y0AxisGen)
                                   .attr({
                                     'class': 'y axis',
                                     'transform': 'translate(' + (margins.left) + ',0)',
+                                    'shape-rendering':'crispEdges'
+                                  })
+
+                      var y1Axis = chart.append('g')
+                                  .call(y1AxisGen)
+                                  .attr({
+                                    'class': 'y axis',
+                                    'transform': 'translate(' + (w -10) + ',0)',
                                     'shape-rendering':'crispEdges'
                                   })
 
@@ -283,7 +298,7 @@ angular
                                       return xScale(new Date (d.date));
                                     })
                                     .y(function(d) {
-                                      return yScale(d.sum);
+                                      return y0Scale(d.sum);
                                     })
                                     .interpolate('monotone');
 
@@ -306,6 +321,13 @@ angular
                           //              .range(d3.range(1, d.value.length+1));
 
 
+                     d3.csv("https://raw.githubusercontent.com/AElmoznino/IBM-Hackathon/master/public/js/directives/weather.csv", function(error, weather){
+                       if (error) {
+                         console.log(error)
+                       } else {
+                         }
+                       console.log(weather);
+                     })
                          
             } //end upadte line
 

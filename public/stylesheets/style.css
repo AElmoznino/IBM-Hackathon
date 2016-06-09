@@ -113,19 +113,19 @@ p, a {
 .text-center a {
   text-decoration: none;
   color:white;
-  font-family: 'Roboto Slab',Arial,sans-serif;
+  font-family: 'Roboto Slab', Arial, sans-serif;
 }
 
 #coming-soon {
   font-size: 16px;
-  font-family: 'Roboto Slab',Arial,sans-serif !important;
+  font-family: 'Roboto Slab', Arial, sans-serif !important;
 }
 
 /* TABLES */
 
 
 table.info-table {
-  font-family: verdana,arial,sans-serif;
+  font-family: 'Titillium Web', Arial, sans-serif;
   font-size:11px;
   text-align: left;
   color:#333333;
@@ -136,7 +136,7 @@ table.info-table {
 }
 
 table.info-table caption {
-  font-family: verdana,arial,sans-serif;
+  font-family: 'Titillium Web', Arial, sans-serif;
   font-size:11px;
   text-align: left;
   color:#333333;
@@ -217,7 +217,7 @@ h3.info-menu {
 }
 
 .axis text {
-  font-family: sans-serif;
+  font-family: 'Titillium Web', Arial, sans-serif;
 }
 
 .info-chart rect:hover {
@@ -299,6 +299,10 @@ rect {
 /* ANGULAR */
 .ng-scope { margin:0; }
 
+text, body {
+  font-family: 'Titillium Web';
+}
+
 .container {
   width: 100%;
 }
@@ -347,7 +351,7 @@ div.tooltip {
   border-radius: 5px;
   box-shadow: 4 px 4px 10px rgb(0, 0, 0, 5);
   pointer-events: none; /*very important*/
-  font-family: sans-serif;
+  font-family: 'Titilium Web', sans-serif;
   font-size: 12px;
 }
 

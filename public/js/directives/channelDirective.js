@@ -1,6 +1,4 @@
-angular
-    .module('fanCo')
-    .directive('channel',  ['d3Service', 'd3func', 'sales', function(d3Service, d3func, sales) {
+module.exports = function(d3Service, d3func, sales) {
       return {
         link: function(scope, element, attrs) {
           d3Service.d3().then(function(d3) {
@@ -107,7 +105,7 @@ var svg = d3.select("#chart").append("svg")
       .style("fill", function(d) { return color(d.name); })
       .on("mouseover", function() { tooltip.style("display", "block"); })
       .on("mouseout", function() { tooltip.style("display", "none"); })
-      
+
 
   var legend = svg.selectAll(".legend")
       .data(color.domain().slice().reverse())
@@ -126,7 +124,7 @@ var svg = d3.select("#chart").append("svg")
       .attr("y", 9)
       .attr("dy", ".35em")
       .style("text-anchor", "end")
-      .text(function(d) { 
+      .text(function(d) {
         console.log(d.ages);
         return d; });
 
@@ -134,14 +132,14 @@ var svg = d3.select("#chart").append("svg")
 
   // Prep the tooltip bits, initial display is hidden
 
-  var tooltip = d3.select('#chart')             
-    .append('div')                             
+  var tooltip = d3.select('#chart')
+    .append('div')
     .attr('class', 'tooltip3')
 
 
-  tooltip.append('div')                       
+  tooltip.append('div')
     .attr('class', 'label')
-      
+
   tooltip.append("rect")
     .attr("width", 30)
     .attr("height", 20)
@@ -159,7 +157,7 @@ var svg = d3.select("#chart").append("svg")
 
 
           //end productline
-            
+
             // pieChart(dataset);
           });
 

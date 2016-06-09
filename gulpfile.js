@@ -19,10 +19,9 @@ gulp.task('server', function (cb) {
 });
 
 gulp.task('watch', function () {
-  // livereload.listen();
   // gulp.watch('./public/css/*.css');
   // gulp.watch('./public/**/*.html');
-  // gulp.watch('./public/js/**/*.js', ['browserify']);
+  gulp.watch('./public/js/**/*.js', ['browserify']);
 });
 
 gulp.task('install', function () {
@@ -34,11 +33,11 @@ gulp.task('browserify', function() {
   // Grabs the app.js file
     return browserify('./public/js/app.js')
       // bundles it and creates a file called main.js
-        .bundle()
-        .pipe(source('main.js'))
-        // saves it the public/js/ directory
-        .pipe(gulp.dest('./public/app/main/'));
+      .bundle()
+      .pipe(source('main.js'))
+      // saves it the public/js/ directory
+      .pipe(gulp.dest('./public/app/main/'));
 });
 
-// gulp.task('default', ['install', 'watch', 'browserify', 'server']);
-gulp.task('default', ['install', 'server']);
+gulp.task('default', ['install', 'watch', 'browserify', 'server']);
+// gulp.task('default', ['install', 'server']);

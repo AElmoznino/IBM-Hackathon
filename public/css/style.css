@@ -1,0 +1,431 @@
+* { 
+  margin: 0;
+  padding: 0;
+} 
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab',Arial,sans-serif;
+  color: #17373D;
+}
+
+p, a {
+  font-family: 'Titillium Web',Arial,sans-serif;
+}
+
+.full-container {
+  margin-left:0px !important;
+  margin-right:0px !important;
+  padding-right: 0px;
+}
+
+.chart div {
+  font: 10px sans-serif;
+  background-color: steelblue;
+  text-align: right;
+  padding: 3px;
+  margin: 1px;
+  color: white;
+}
+
+.mt {margin-top: 25px;}
+.mb {margin-bottom: 25px;}
+
+/* NAVBAR */
+
+.nav > li > a {
+    color: #0077C2 !important;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.nav > li > a:hover {
+    color: #87BDC8 !important;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.transparent {
+  background-color: transparent !important;
+  border: 0px !important;
+}
+
+.nav-title {
+  color: #0077C2 !important;
+  font-size: 16px;
+  text-decoration: none;
+  padding: 15px 0;
+  line-height: 20px;
+  display: block;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+/* HOME PAGE */
+
+.image-text a {
+  color:white;
+}
+
+.sales-div {
+  background-image:url(../img/sales.jpg);
+  background-size:100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 0px 0px;
+  height: 100vh;
+    -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+}
+
+.weather-div {
+  background-image:url(../img/weather.jpg);
+  background-size:100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+  height: 100vh;
+    -webkit-filter: grayscale(1);
+  filter: grayscale(1);
+  background-position: 0px 0px;
+}
+
+.weather-div:hover, .sales-div:hover {
+    -webkit-filter: grayscale(0);
+  filter: grayscale(0);
+  font-size: 105%;
+}
+
+.text-center {
+    text-align: center;
+    color: white;
+    font-size: 5em;
+    text-transform: uppercase;
+    padding-top: 40%;
+    text-decoration: none;
+}
+
+#weather-vertical {
+  padding-top: 27.5%;
+}
+
+.text-center a {
+  text-decoration: none;
+  color:white;
+  font-family: 'Roboto Slab', Arial, sans-serif;
+}
+
+#coming-soon {
+  font-size: 16px;
+  font-family: 'Roboto Slab', Arial, sans-serif !important;
+}
+
+/* TABLES */
+
+
+table.info-table {
+  font-family: 'Titillium Web', Arial, sans-serif;
+  font-size:11px;
+  text-align: left;
+  color:#333333;
+  border-width: 1px;
+  border-color: #C8C7CF;
+  border-collapse: collapse;
+    margin: 20px 10px;
+}
+
+table.info-table caption {
+  font-family: 'Titillium Web', Arial, sans-serif;
+  font-size:11px;
+  text-align: left;
+  color:#333333;
+    line-height: normal;
+}
+
+table.info-table th {
+  border-width: 1px;
+  padding: 2px;
+  border-style: solid;
+  border-color: #C8C7CF;
+  background-color: #eee;
+    line-height: normal;
+}
+
+table.info-table td {
+  border-width: 1px;
+  padding: 2px;
+  border-style: solid;
+  border-color: #C8C7CF;
+  background-color: #ffffff;
+    line-height: normal;
+}
+
+.info-table-wrapper p { 
+  margin: 0 10px;
+}
+
+table.info-table .key-row {
+  background-color: #ccc;
+}
+
+.info-chart {
+  display: none;
+  position: relative;
+    width: 625px;
+  overflow: hidden;
+}
+
+.info-menu {
+  display: none;
+  margin: 10px 10px 0;
+}
+
+h3.info-menu {
+  margin: 5px 0 -25px 10px;
+  text-transform: uppercase;
+}
+
+.key {
+  position: absolute;
+  margin: 50px 0 0 70px;
+  width: 100px;
+}
+
+.key span {
+  width: 18px;
+  height: 18px;
+  border: none;
+  float: left;
+  margin: 0 10px 0 0;
+}
+
+.key ul li p {
+  margin: 0 0 7px 0; 
+}
+
+.key ul li {
+  list-style-type: none;
+  margin: 0 0 0 -30px; 
+  overflow: auto;
+}
+
+.axis path, .axis line {
+  fill: black;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.axis text {
+  font-family: 'Titillium Web', Arial, sans-serif;
+}
+
+.info-chart rect:hover {
+  fill: #33ADBC;
+}
+
+rect {
+  shape-rendering: crispEdges;
+  transition: all 0.3s;
+}
+
+.tooltip {
+  position: absolute;
+  width: 120px;
+  height: auto;
+  padding: 10px;
+  background-color: #000;
+  pointer-events: none;
+  border-radius: 3px;
+  transition: opacity 0.3s;
+}
+
+
+.tooltip-left:before {
+  content: "";
+  position:absolute;
+  bottom: 11px;
+  right: -8px;
+  border-left: 8px solid #000;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 0;
+  opacity: 1;
+}
+
+.tooltip-right:before {
+  content: "";
+  position:absolute;
+  bottom: 11px;
+  left: -8px;
+  border-right: 8px solid #000;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-left: 0;
+}
+
+
+.tooltip.hidden {
+  opacity: 0;
+}
+
+.tooltip p {
+  margin: 0;
+  color: #fff;
+  font-family: sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+}
+
+.axis text {
+    font-family: 'Roboto Slab', sans-serif;
+}
+
+/* GRAPHS */
+
+.graph-card {
+  border-top: 4px solid #0077C2;
+  background-color: white;
+}
+
+.back-bg {
+  background-color: #EEF2F6;
+}
+
+.red-bg {
+  background-color: #FF5E69;
+}
+
+/* ANGULAR */
+.ng-scope { margin:0; }
+
+text, body {
+  font-family: 'Titillium Web';
+}
+
+.forecast-p {
+  font-size: 18px;
+}
+
+.container {
+  width: 100%;
+}
+
+.col-md-12 {
+  padding-left:0px !important;
+  padding-right:0px !important;
+}
+
+a:hover, a:visited, a:focus, a:active {
+  text-decoration: none;
+}
+
+.active {
+  background-color: #0077C2 !important;
+}
+
+.btn {
+  background-color: #47A9BD;
+  margin-right: 20px;
+  border: none;
+}
+
+.btn-hov:hover {
+  background-color: #87BDC8 !important;
+}
+
+button.btn.btn-default.disabled {
+    background-color: #87BDC8;
+}
+
+.chart-page-header {
+  margin-bottom: 30px;
+}
+
+.white {
+  background-color: white;
+}
+/*for line chart*/
+div.tooltip {
+  position: absolute;
+  max-width: 200px;
+  height: auto;
+  padding: 5px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 4 px 4px 10px rgb(0, 0, 0, 5);
+  pointer-events: none; /*very important*/
+  font-family: 'Titilium Web', sans-serif;
+  font-size: 12px;
+}
+
+#chart {
+  height: 360px;
+  position: relative;
+  width: 360px;
+}
+
+/*for pie chart*/
+.tooltip2 {
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: black;
+  display: none;
+  font-size: 14px;
+  left: 420px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  top: -260px;
+  width: 120px;
+  z-index: 10;
+}
+
+/*for the channel tooltip*/
+.tooltip3 {
+  background-color: red;
+  position: absolute;
+  top: -520px;
+  left: 520px;
+  background: #eee;
+  box-shadow: 0 0 5px #999999;
+  color: black;
+  display: block;
+  font-size: 14px;
+  padding: 10px;
+  position: absolute;
+  text-align: center;
+  width: 120px;
+  z-index: 10;
+}
+
+.label {
+  color: black;
+}
+.legend {
+   font-size: 12px;
+ }
+ rect {
+   stroke-width: 2;
+ }
+
+/* RESPONSIVENESS MEDIA QUERIES */ 
+
+@media (min-width:1026px){
+   .mr {
+    margin-right: 65px;
+   }
+
+}
+
+@media (min-width:1800px){
+   .mr {
+    margin-right: 120px;
+   }
+}
+
+@media screen and (max-width: 768px) {
+    .sales-div, .weather-div {
+      min-height: 800px;
+    }
+}

@@ -36,7 +36,6 @@
     "gulp": "^3.9.1",
     "gulp-connect": "^4.0.0",
     "gulp-install": "^0.6.0",
-    "gulp-purifycss": "^0.2.0",
     "jquery": "^2.2.3",
     "mongoose": "^4.4.19",
     "morgan": "^1.7.0",

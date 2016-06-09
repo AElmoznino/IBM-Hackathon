@@ -3,7 +3,6 @@ var gulp = require('gulp'),
     install = require('gulp-install'),
     browserify = require('browserify'),
     minify = require('gulp-minify'),
-    purify = require('gulp-purifycss'),
     source = require('vinyl-source-stream'),
     exec = require('child_process').exec;
 
@@ -23,7 +22,6 @@ gulp.task('server', function (cb) {
 gulp.task('watch', function () {
   gulp.watch('./public/js/**/*.js', ['browserify']);
   gulp.watch('./public/app/main/main.js', ['compress']);
-  gulp.watch('./public/css/*.css', ['purify']);
 });
 
 gulp.task('install', function () {
@@ -54,11 +52,4 @@ gulp.task('compress', function() {
       .pipe(gulp.dest('./public/app/min/'));
 });
 
-gulp.task('purify', function() {
-  gulp.src('./public/css/style.css')
-      .pipe(purify(['./public/app/**/*.js', './public/**/*.html']))
-      .pipe(gulp.dest('./public/app/css/'));
-});
-
-gulp.task('default', ['install', 'watch', 'purify', 'browserify', 'compress', 'server']);
-// gulp.task('default', ['install', 'server']);
+gulp.task('default', ['install', 'watch', 'browserify', 'compress', 'server']);

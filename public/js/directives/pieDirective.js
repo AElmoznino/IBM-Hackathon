@@ -113,19 +113,13 @@ angular
                   return d.sum;
                 }));
 
-                var percent = Math.round(1000 * d.data.sum / total) / 10;
+                var percent = d3.round(100 * d.data.sum / total, 1);
                 tooltip.select('.label').html(d.data.label);
                 tooltip.select('.count').html(d3.round(d.data.sum, 2));
                 tooltip.select('.percent').html(percent + '%');
                 tooltip.style('display', 'block');
               });
-
-              // to move it with mouse
-              // path.on('mousemove', function(d) {
-              //   tooltip.style('top', (d3.event.layerY + 10) + 'px')
-              //     .style('left', (d3.event.layerX + 10) + 'px');
-              // });
-
+              
               path.on('mouseout', function() {
                 tooltip.style('display', 'none');
               });
